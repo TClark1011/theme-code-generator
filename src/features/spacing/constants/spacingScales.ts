@@ -1,4 +1,4 @@
-import { SpacingScale } from '$spacing/models';
+import { SpacingScale } from '$spacing';
 import { F, N } from '@mobily/ts-belt';
 
 const goldenRatioGenerator: ((p:number) => number) = F.memoizeWithKey(String, (index:number)=> index > 0 ? goldenRatioGenerator(index - 1) * 1.61803398875 : 0);
