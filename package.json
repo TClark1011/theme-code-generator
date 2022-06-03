@@ -4,7 +4,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "generate-index": "ctix ./tsconfig.json --useBackupFile false --useComment false"
   },
   "dependencies": {
     "@mantine/core": "^4.1.4",
@@ -21,6 +22,7 @@
     "@types/react-dom": "18.0.1",
     "@typescript-eslint/eslint-plugin": "^5.27.0",
     "@typescript-eslint/parser": "^5.27.0",
+    "ctix": "^0.6.0",
     "eslint-config-next": "^12.1.6",
     "eslint-plugin-react": "^7.30.0",
     "prettier": "2.6.2",
