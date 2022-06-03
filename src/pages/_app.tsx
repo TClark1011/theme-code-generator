@@ -1,8 +1,7 @@
-import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 import { MantineProvider } from '@mantine/core'
 import { useColorScheme } from '@mantine/hooks'
-import { theme } from '../constants'
+import { theme } from '$/constants'
 
 function MyApp({ Component, pageProps }: AppProps) {
   const preferredColorScheme = useColorScheme()
