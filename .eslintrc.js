@@ -22,6 +22,7 @@ module.exports = {
 		'react',
 		'@typescript-eslint'
 	],
+	'ignorePatterns':['scripts/**'],
 	'rules': {
 		'indent': [
 			'error',
