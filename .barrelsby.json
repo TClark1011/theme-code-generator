@@ -1,0 +1,6 @@
+{
+	"directory": ["./src/features"],
+	"location": "below",
+	"singleQuotes": true,
+	"exclude":["./src/features/\\w+/index.ts"]
+}
