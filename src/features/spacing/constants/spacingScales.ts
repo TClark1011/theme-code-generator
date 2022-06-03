@@ -1,8 +1,8 @@
 import { SpacingScale } from '$spacing';
 import { F, N } from '@mobily/ts-belt';
 
-const goldenRatioGenerator: ((p:number) => number) = F.memoizeWithKey(String, (index:number)=> index > 0 ? goldenRatioGenerator(index - 1) * 1.61803398875 : 0);
-const doubleGenerator: ((p:number) => number) = F.memoizeWithKey(String, (index:number)=> index > 0 ? goldenRatioGenerator(index - 1) * 2 : 0);
+const goldenRatioGenerator: ((p:number) => number) = F.memoizeWithKey(String, (index:number)=> index > 1 ? goldenRatioGenerator(index - 1) * 1.61803398875 : 1);
+const doubleGenerator: ((p:number) => number) = F.memoizeWithKey(String, (index:number)=> index > 1 ? doubleGenerator(index - 1) * 2 : 1);
 
 const spacingScales: SpacingScale[] = [{
 	id: 'grid4',
@@ -20,6 +20,11 @@ const spacingScales: SpacingScale[] = [{
 	id: 'double',
 	name: 'Double',
 	generator: doubleGenerator
+}, {
+	id:'square',
+	name: 'Exponential',
+	generator: (index) => Math.pow(1.4, index)
 }];
+
 
 export default spacingScales;

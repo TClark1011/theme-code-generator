@@ -1,4 +1,4 @@
-import { SpacingScale } from '$spacing';
+import { SpacingScaleSelection, spacingSettingsAtom } from '$spacing';
 import { A, F, flow, N, pipe } from '@mobily/ts-belt';
 import { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
@@ -11,46 +11,41 @@ import {
 	Tooltip,
 	Legend,
 } from 'chart.js';
+import { Stack } from '@mantine/core';
+import { useAtomValue } from 'jotai';
 
-ChartJS.register(
-	CategoryScale,
-	LinearScale,
-	BarElement,
-	Title,
-	Tooltip,
-	Legend
-);
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-export type SpacingVisualizationProps = {
-  scale: SpacingScale
-  maxIndex: number
-}
-
-const SpacingVisualization: React.FC<SpacingVisualizationProps> = ({
-	scale,
-	maxIndex,
-}) => {
+const SpacingVisualization: React.FC = () => {
+	const { maxIndex, selectedScale } = useAtomValue(spacingSettingsAtom);
 	const values = useMemo(
-		() => pipe(maxIndex,  A.makeWithIndex(flow(N.succ, scale.generator)), F.toMutable),
-		[maxIndex, scale]
+		() =>
+			pipe(
+				maxIndex,
+				A.makeWithIndex(flow(N.succ, selectedScale.generator)),
+				F.toMutable
+			),
+		[maxIndex, selectedScale]
 	);
 
-	console.log('(SpacingVisualization) values: ', values);
-
 	return (
-		<Bar
-			options={{
-				responsive: true
-			}}
-			data={{
-				labels: values.map((_,index) => index + 1),
-				datasets: [{
-					data: values,
-					backgroundColor: 'yellow'
-				}],
-
-			}}
-		></Bar>
+		<Stack>
+			<Bar
+				options={{
+					responsive: true,
+				}}
+				data={{
+					labels: values.map((_, index) => index + 1),
+					datasets: [
+						{
+							data: values,
+							backgroundColor: 'yellow',
+						},
+					],
+				}}
+			/>
+			<SpacingScaleSelection />
+		</Stack>
 	);
 };
 

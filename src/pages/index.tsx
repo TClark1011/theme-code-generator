@@ -1,6 +1,6 @@
 import type { NextPage } from 'next';
 import { Box, Text } from '@mantine/core';
-import { spacingScales, SpacingVisualization } from '$spacing';
+import { SpacingMaxIndexSlider, SpacingVisualization } from '$spacing';
 
 const Home: NextPage = () => {
 	return (
@@ -12,7 +12,8 @@ const Home: NextPage = () => {
 			}}
 		>
 			<Text>Hi</Text>
-			<SpacingVisualization maxIndex={10} scale={spacingScales[0]} />
+			<SpacingVisualization  />
+			<SpacingMaxIndexSlider />
 		</Box>
 	);
 };
