@@ -186,6 +186,11 @@
     clsx "^1.1.1"
     csstype "3.0.9"
 
+"@mobily/ts-belt@^3.11.0":
+  version "3.11.0"
+  resolved "https://registry.yarnpkg.com/@mobily/ts-belt/-/ts-belt-3.11.0.tgz#5ba18b8116d699d05fae10c29e248d6c99afe817"
+  integrity sha512-nEtjcTi9k02dU90VnZAUA7V5umP7kVBZJYZc1N7cXQidb3HICXcBi5B2UxyxZ7leO++TWd1y2fItfxIwWS8h4A==
+
 "@next/env@12.1.6":
   version "12.1.6"
   resolved "https://registry.yarnpkg.com/@next/env/-/env-12.1.6.tgz#5f44823a78335355f00f1687cfc4f1dafa3eca08"
