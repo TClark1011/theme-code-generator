@@ -1,5 +1,6 @@
 import { spacingStore,  } from '$spacing';
 import { init as initialiseStore, Models, RematchDispatch, RematchRootState } from '@rematch/core';
+import immerPlugin from '@rematch/immer';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
 export type RootStoreModel = Models<RootStoreModel> & {
@@ -12,7 +13,8 @@ const models: RootStoreModel = {
 };
 
 const store = initialiseStore({
-	models
+	models,
+	plugins: [immerPlugin<RootStoreModel>()]
 });
 
 export type RootState = RematchRootState<RootStoreModel>;

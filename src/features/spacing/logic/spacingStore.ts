@@ -11,10 +11,9 @@ const spacingStore = createModel<RootStoreModel>()({
 		selectedScale: spacingScales[0]
 	} as SpacingStoreModel,
 	reducers: {
-		selectNewScale: (state, payload: SpacingScale) => ({
-			...state,
-			selectedScale: payload
-		})
+		selectNewScale: (state, payload: SpacingScale) => {
+			state.selectedScale = payload;
+		}
 	}
 });
 
