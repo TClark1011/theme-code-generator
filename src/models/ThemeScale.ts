@@ -1,8 +1,8 @@
-import { WithId } from '$/models';
+import { WithId, LabelValuePairWithNumericDeriver, Array } from '$/models';
 
 type ThemeScale<Output> = WithId & {
 	name: string;
-	generator: (index:number) => Output;
+	values: Array<LabelValuePairWithNumericDeriver<Output>>;
 }
 
 export default ThemeScale;

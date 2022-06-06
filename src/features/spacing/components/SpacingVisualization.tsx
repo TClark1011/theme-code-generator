@@ -1,5 +1,4 @@
-import { spacingSettingsAtom } from '$spacing';
-import { A, F, flow, N, pipe } from '@mobily/ts-belt';
+import { A, D } from '@mobily/ts-belt';
 import { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
 import {
@@ -10,27 +9,25 @@ import {
 	Tooltip,
 } from 'chart.js';
 import { Box, BoxProps } from '@mantine/core';
-import { useAtomValue } from 'jotai';
 import {  useThemeColor } from '$/hooks';
+import { deriveNumberForComplexLabelValuePair } from '$/models';
+import { useStoreSelector } from '$/logic';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip);
 
-const useMemoisedValues = () => {
-	const { maxIndex, selectedScale } = useAtomValue(spacingSettingsAtom);
-	const values = useMemo(
-		() =>
-			pipe(
-				maxIndex,
-				A.makeWithIndex(flow(N.succ, selectedScale.generator)),
-				F.toMutable
-			),
-		[maxIndex, selectedScale]
-	);
+const useValues = () => {
+	const selectedScale = useStoreSelector(s => s.spacing.selectedScale);
+
+	const values = useMemo(() =>  ({
+		numericValues: (A.tail(selectedScale.values) ?? []).map(deriveNumberForComplexLabelValuePair),
+		labels: (A.tail(selectedScale.values) ?? []).map(D.getUnsafe('label')),
+	}), [selectedScale]);
+
 	return values;
 };
 
 const SpacingVisualization: React.FC<BoxProps<'div'>> = (props) => {
-	const values = useMemoisedValues();
+	const {numericValues, labels} = useValues();
 	const barColor = useThemeColor('primary');
 
 	return (
@@ -44,10 +41,10 @@ const SpacingVisualization: React.FC<BoxProps<'div'>> = (props) => {
 					},
 				}}
 				data={{
-					labels: values.map((_, index) => index + 1),
+					labels: labels,
 					datasets: [
 						{
-							data: values,
+							data: numericValues,
 							backgroundColor: barColor,
 						},
 					],

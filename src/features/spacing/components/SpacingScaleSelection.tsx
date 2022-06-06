@@ -1,10 +1,10 @@
-import { useAtom } from 'jotai';
-import { spacingSettingsAtom, spacingScales } from '$spacing';
+import {  spacingScales } from '$spacing';
 import { Box, BoxProps, Select } from '@mantine/core';
 import { useCallback } from 'react';
-
+import { useStoreActions, useStoreSelector } from '$/logic';
 const SpacingScaleSelection: React.FC<BoxProps<'div'>> = ({ ...props }) => {
-	const [spacingSystemState, dispatch] = useAtom(spacingSettingsAtom);
+	const selectedScale = useStoreSelector(s => s.spacing.selectedScale);
+	const selectNewScale = useStoreActions(s => s.spacing.selectNewScale);
 
 	const onChange = useCallback(
 		(newlySelectedId: string) => {
@@ -14,16 +14,16 @@ const SpacingScaleSelection: React.FC<BoxProps<'div'>> = ({ ...props }) => {
 			if (!newSelection) {
 				throw Error('No spacing scale found with id: ' + newlySelectedId);
 			}
-			dispatch({ type: 'selectScale', payload: newSelection });
+			selectNewScale(newSelection);
 		},
-		[dispatch]
+		[selectNewScale]
 	);
 
 	return (
 		<Box {...props}>
 			<Select
 				label="Spacing Scale"
-				value={spacingSystemState.selectedScale.id}
+				value={selectedScale.id}
 				data={spacingScales.map(({ id, name }) => ({ value: id, label: name }))}
 				onChange={onChange}
 			/>
