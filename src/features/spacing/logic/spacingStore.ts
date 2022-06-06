@@ -7,11 +7,10 @@ export type SpacingStoreModel = {
 }
 
 const spacingStore:SpacingStoreModel = {
-	selectedScale: spacingScales[0],
-	selectNewScale: action((state,payload) => ({
-		...state,
-		selectedScale: payload,
-	}))
+	selectedScale: spacingScales[1],
+	selectNewScale: action((state,payload) => {
+		state.selectedScale = payload;
+	})
 };
 
 

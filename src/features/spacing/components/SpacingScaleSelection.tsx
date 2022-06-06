@@ -14,10 +14,14 @@ const SpacingScaleSelection: React.FC<BoxProps<'div'>> = ({ ...props }) => {
 			if (!newSelection) {
 				throw Error('No spacing scale found with id: ' + newlySelectedId);
 			}
+			console.log('(SpacingScaleSelection) newSelection: ', newSelection);
 			selectNewScale(newSelection);
 		},
 		[selectNewScale]
 	);
+
+	console.log('(SpacingScaleSelection) selectedScale: ', selectedScale);
+
 
 	return (
 		<Box {...props}>

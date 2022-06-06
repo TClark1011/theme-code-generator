@@ -16,7 +16,7 @@ import { useStoreSelector } from '$/logic';
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip);
 
 const useValues = () => {
-	const selectedScale = useStoreSelector(s => s.spacing.selectedScale);
+	const {selectedScale} = useStoreSelector(s => s.spacing);
 
 	const values = useMemo(() =>  ({
 		numericValues: (A.tail(selectedScale.values) ?? []).map(deriveNumberForComplexLabelValuePair),

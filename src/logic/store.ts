@@ -1,5 +1,5 @@
-import {spacingStore, SpacingStoreModel} from '$spacing';
-import { createStore, createTypedHooks } from 'easy-peasy';
+import {spacingScales,  spacingStore,  SpacingStoreModel} from '$spacing';
+import { action, createStore, createTypedHooks } from 'easy-peasy';
 
 export type StoreModel = {
 	spacing: SpacingStoreModel;
