@@ -21,6 +21,7 @@ export type RootState = RematchRootState<RootStoreModel>;
 export type Dispatch = RematchDispatch<RootStoreModel>
 
 export const useStoreSelector: TypedUseSelectorHook<RootState> = useSelector;
+// eslint-disable-next-line prettier/prettier
 export const useStoreDispatch = useDispatch<Dispatch>;
 
 export default store;
