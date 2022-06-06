@@ -25,11 +25,11 @@ module.exports = {
     'linebreak-style': ['error', 'unix'],
     quotes: ['error', 'single'],
     semi: ['error', 'always'],
+    'no-restricted-imports': [
+      'error',
+      {
+        patterns: ['$/features/**'],
+      },
+    ],
   },
-  'no-restricted-imports': [
-    'error',
-    {
-      patterns: ['$/features/**'],
-    },
-  ],
 };

@@ -165,13 +165,6 @@
   dependencies:
     "@mantine/ssr" "4.2.7"
 
-"@mantine/prism@^4.2.8":
-  version "4.2.8"
-  resolved "https://registry.yarnpkg.com/@mantine/prism/-/prism-4.2.8.tgz#a1ac66433f11ccec1a5e5685cc4b2a12b0621445"
-  integrity sha512-w/QDU37o6wlQ+d7KVZtOanPB7/8gevmyElzY5/9IBucvkDptU+mzIqbO3JVvRuwgxTmvMBKc6VqYZI2Vf7+FQw==
-  dependencies:
-    prism-react-renderer "^1.2.1"
-
 "@mantine/ssr@4.2.7":
   version "4.2.7"
   resolved "https://registry.yarnpkg.com/@mantine/ssr/-/ssr-4.2.7.tgz#d4a47fa0459fba4e3ace9444b1708b5594569c33"
@@ -2450,11 +2443,6 @@ prettier@^2.6.2:
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.6.2.tgz#e26d71a18a74c3d0f0597f55f01fb6c06c206032"
   integrity sha512-PkUpF+qoXTqhOeWL9fu7As8LXsIUZ1WYaJiY/a7McAQzxjk82OF0tibkFXVCDImZtWxbvojFjerkiLb0/q8mew==
 
-prism-react-renderer@^1.2.1:
-  version "1.3.3"
-  resolved "https://registry.yarnpkg.com/prism-react-renderer/-/prism-react-renderer-1.3.3.tgz#9b5a4211a6756eee3c96fee9a05733abc0b0805c"
-  integrity sha512-Viur/7tBTCH2HmYzwCHmt2rEFn+rdIWNIINXyg0StiISbDiIhHKhrFuEK8eMkKgvsIYSjgGqy/hNyucHp6FpoQ==
-
 process-nextick-args@~2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/process-nextick-args/-/process-nextick-args-2.0.1.tgz#7820d9b16120cc55ca9ae7792680ae7dba6d7fe2"
@@ -2902,6 +2890,11 @@ supports-preserve-symlinks-flag@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz#6eda4bd344a3c94aea376d4cc31bc77311039e09"
   integrity sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==
+
+tabler-icons-react@^1.48.1:
+  version "1.48.1"
+  resolved "https://registry.yarnpkg.com/tabler-icons-react/-/tabler-icons-react-1.48.1.tgz#edf4718e7b444a79e33c261f735c639011b2b4eb"
+  integrity sha512-TX12VEymcICeHOUd0f086JgMZhwogol36aTbEZBe4KnvHIjr7TyHFUUKkqydgPwjdJPEA+6Y1XOglJ9IGKVC5Q==
 
 text-table@^0.2.0:
   version "0.2.0"

@@ -46,5 +46,3 @@ export const systemToFormValues = (system: ThemeScaleCodeSystemRules): ThemeScal
   postfix: system.postfix,
   prefix: system.prefix,
 });
-
-console.log('(codeFormHelpers) systemToFormValues: ', systemToFormValues);

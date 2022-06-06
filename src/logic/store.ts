@@ -1,4 +1,4 @@
-import codeGenerationStore from '$/features/code-generation/logic/codeGenerationStore';
+import {codeGenerationStore} from '$code-generation';
 import {generalStore} from '$/logic';
 import { spacingStore,  } from '$spacing';
 import { init as initialiseStore, Models, RematchDispatch, RematchRootState } from '@rematch/core';
