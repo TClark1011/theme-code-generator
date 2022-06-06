@@ -1,18 +1,24 @@
-import {spacingScales,  spacingStore,  SpacingStoreModel} from '$spacing';
-import { action, createStore, createTypedHooks } from 'easy-peasy';
+import { spacingStore,  } from '$spacing';
+import { init as initialiseStore, Models, RematchDispatch, RematchRootState } from '@rematch/core';
+import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
-export type StoreModel = {
-	spacing: SpacingStoreModel;
+export type RootStoreModel = Models<RootStoreModel> & {
+	spacing: typeof spacingStore;
 }
 
-const store = createStore<StoreModel>({
-	spacing: spacingStore,
+
+const models: RootStoreModel = {
+	spacing: spacingStore
+};
+
+const store = initialiseStore({
+	models
 });
 
-const typedHooks = createTypedHooks<StoreModel>();
+export type RootState = RematchRootState<RootStoreModel>;
+export type Dispatch = RematchDispatch<RootStoreModel>
 
-export const useStoreSelector = typedHooks.useStoreState;
-export const useStoreActions = typedHooks.useStoreActions;
-export const useStoreDispatch = typedHooks.useStoreDispatch;
+export const useStoreSelector: TypedUseSelectorHook<RootState> = useSelector;
+export const useStoreDispatch = useDispatch<Dispatch>;
 
 export default store;

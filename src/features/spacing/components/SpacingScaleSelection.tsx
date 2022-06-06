@@ -1,10 +1,11 @@
 import {  spacingScales } from '$spacing';
 import { Box, BoxProps, Select } from '@mantine/core';
 import { useCallback } from 'react';
-import { useStoreActions, useStoreSelector } from '$/logic';
+import { useStoreDispatch, useStoreSelector } from '$/logic';
 const SpacingScaleSelection: React.FC<BoxProps<'div'>> = ({ ...props }) => {
 	const selectedScale = useStoreSelector(s => s.spacing.selectedScale);
-	const selectNewScale = useStoreActions(s => s.spacing.selectNewScale);
+	const dispatch = useStoreDispatch();
+	
 
 	const onChange = useCallback(
 		(newlySelectedId: string) => {
@@ -14,14 +15,10 @@ const SpacingScaleSelection: React.FC<BoxProps<'div'>> = ({ ...props }) => {
 			if (!newSelection) {
 				throw Error('No spacing scale found with id: ' + newlySelectedId);
 			}
-			console.log('(SpacingScaleSelection) newSelection: ', newSelection);
-			selectNewScale(newSelection);
+			dispatch.spacing.selectNewScale(newSelection);
 		},
-		[selectNewScale]
+		[dispatch]
 	);
-
-	console.log('(SpacingScaleSelection) selectedScale: ', selectedScale);
-
 
 	return (
 		<Box {...props}>
