@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@mantine/core": "^4.1.4",
+    "@mantine/form": "^4.2.8",
     "@mantine/hooks": "^4.1.4",
     "@mantine/next": "^4.1.4",
     "@mobily/ts-belt": "^3.11.0",

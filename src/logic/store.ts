@@ -1,3 +1,4 @@
+import {generalStore} from '$/logic';
 import { spacingStore,  } from '$spacing';
 import { init as initialiseStore, Models, RematchDispatch, RematchRootState } from '@rematch/core';
 import immerPlugin from '@rematch/immer';
@@ -5,11 +6,13 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
 export type RootStoreModel = Models<RootStoreModel> & {
 	spacing: typeof spacingStore;
+	general: typeof generalStore;
 }
 
 
 const models: RootStoreModel = {
-	spacing: spacingStore
+	spacing: spacingStore,
+	general: generalStore
 };
 
 const store = initialiseStore({
@@ -23,5 +26,7 @@ export type Dispatch = RematchDispatch<RootStoreModel>
 export const useStoreSelector: TypedUseSelectorHook<RootState> = useSelector;
 // eslint-disable-next-line prettier/prettier
 export const useStoreDispatch = useDispatch<Dispatch>;
+
+export type Selector<T> = (state: RootState) => T;
 
 export default store;

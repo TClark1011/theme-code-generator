@@ -1,6 +1,7 @@
 import type { NextPage } from 'next';
 import { Box } from '@mantine/core';
 import { SpacingScaleSelection, SpacingVisualization } from '$spacing';
+import { ThemeScaleCodeForm } from '$code-generation';
 
 const Home: NextPage = () => {
   return (
@@ -13,6 +14,7 @@ const Home: NextPage = () => {
     >
       <SpacingVisualization />
       <SpacingScaleSelection />
+      <ThemeScaleCodeForm />
     </Box>
   );
 };
