@@ -12,7 +12,7 @@ const CodeGenerationModal: React.FC = () => {
   };
 
   return (
-    <Modal opened={isOpen} onClose={handleClose} title={`Generate ${scaleType} code`} size="lg">
+    <Modal opened={isOpen} onClose={handleClose} title={`Generate ${scaleType} code`} size="md">
       <ThemeScaleCodeForm />
       <Divider my="md" />
       <GeneratedCodePreview />

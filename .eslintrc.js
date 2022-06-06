@@ -31,5 +31,6 @@ module.exports = {
         patterns: ['$/features/**'],
       },
     ],
+    '@typescript-eslint/no-explicit-any': 'off',
   },
 };
