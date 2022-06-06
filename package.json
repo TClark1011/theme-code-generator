@@ -6,9 +6,10 @@
     "start": "next start",
     "lint": "eslint --fix \"src/**/*.{ts,tsx}\"",
     "fix-type-exports": "node ./scripts/fixTypeExports.js",
+    "delete-features-index": "rimraf src/features/*/index.ts",
     "generate-features-index": "barrelsby --config .barrelsby.json",
     "generate-folder-index": "ctix ./tsconfig.json --useBackupFile false --useComment false --excludePath true && yarn fix-type-exports",
-    "index": "yarn generate-folder-index && yarn generate-features-index"
+    "index": "yarn generate-folder-index && yarn delete-features-index && yarn generate-features-index"
   },
   "dependencies": {
     "@mantine/core": "^4.1.4",
@@ -43,6 +44,7 @@
     "eslint-plugin-react": "^7.30.0",
     "prettier": "^2.6.2",
     "replace-in-file": "^6.3.5",
+    "rimraf": "^3.0.2",
     "type-fest": "^2.13.0",
     "typescript": "4.7.3"
   }
