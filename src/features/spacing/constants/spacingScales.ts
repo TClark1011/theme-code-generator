@@ -1,5 +1,5 @@
 import { SpacingScale } from '$spacing';
-import { A, D, flow, pipe, S } from '@mobily/ts-belt';
+import { A, D, F, flow, pipe, S } from '@mobily/ts-belt';
 import { remToPx } from 'polished';
 
 const tailwindDefaultSpacing = {
@@ -41,6 +41,10 @@ const tailwindDefaultSpacing = {
 
 const convertRemStringToPxNumber = flow(remToPx, S.remove('px'), Number);
 
+const pricelineGenerator: (index: number) => number = F.memoizeWithKey(String, (index: number) =>
+  index > 1 ? pricelineGenerator(index - 1) * 2 : index * 4
+);
+
 const spacingScales: SpacingScale[] = [
   {
     id: 'grid4',
@@ -64,6 +68,15 @@ const spacingScales: SpacingScale[] = [
       })),
       A.sortBy(flow(D.getUnsafe('label'), Number))
     ),
+  },
+  {
+    id: 'priceline',
+    name: 'Priceline',
+    values: A.makeWithIndex(7, (i) => ({
+      label: `${i}`,
+      value: pricelineGenerator(i),
+      numericValueDeriver: Number,
+    })),
   },
 ];
 
