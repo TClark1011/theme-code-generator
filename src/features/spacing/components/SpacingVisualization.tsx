@@ -9,9 +9,9 @@ import {
 	BarElement,
 	Tooltip,
 } from 'chart.js';
-import { Stack } from '@mantine/core';
+import { Box, BoxProps } from '@mantine/core';
 import { useAtomValue } from 'jotai';
-import { useThemeColor } from '$/hooks';
+import {  useThemeColor } from '$/hooks';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip);
 
@@ -29,20 +29,19 @@ const useMemoisedValues = () => {
 	return values;
 };
 
-const SpacingVisualization: React.FC = () => {
+const SpacingVisualization: React.FC<BoxProps<'div'>> = (props) => {
 	const values = useMemoisedValues();
 	const barColor = useThemeColor('primary');
 
 	return (
-		<Stack>
+		<Box {...props}>
 			<Bar
 				options={{
-					responsive: true,
 					plugins: {
 						legend: {
 							display: false,
 						}
-					}
+					},
 				}}
 				data={{
 					labels: values.map((_, index) => index + 1),
@@ -54,7 +53,7 @@ const SpacingVisualization: React.FC = () => {
 					],
 				}}
 			/>
-		</Stack>
+		</Box>
 	);
 };
 
