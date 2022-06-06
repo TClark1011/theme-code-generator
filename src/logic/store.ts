@@ -1,3 +1,4 @@
+import codeGenerationStore from '$/features/code-generation/logic/codeGenerationStore';
 import {generalStore} from '$/logic';
 import { spacingStore,  } from '$spacing';
 import { init as initialiseStore, Models, RematchDispatch, RematchRootState } from '@rematch/core';
@@ -7,12 +8,14 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 export type RootStoreModel = Models<RootStoreModel> & {
 	spacing: typeof spacingStore;
 	general: typeof generalStore;
+	codeGeneration: typeof codeGenerationStore;
 }
 
 
 const models: RootStoreModel = {
 	spacing: spacingStore,
-	general: generalStore
+	general: generalStore,
+	codeGeneration: codeGenerationStore
 };
 
 const store = initialiseStore({
@@ -28,5 +31,6 @@ export const useStoreSelector: TypedUseSelectorHook<RootState> = useSelector;
 export const useStoreDispatch = useDispatch<Dispatch>;
 
 export type Selector<T> = (state: RootState) => T;
+
 
 export default store;

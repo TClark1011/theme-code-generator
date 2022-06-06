@@ -1,5 +1,5 @@
 import { RootStoreModel, Selector } from '$/logic';
-import { D, F, flow } from '@mobily/ts-belt';
+import { D, flow } from '@mobily/ts-belt';
 import { createModel } from '@rematch/core';
 
 export type ThemeScaleType = 'spacing';

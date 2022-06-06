@@ -16,6 +16,7 @@
     "@mantine/form": "^4.2.8",
     "@mantine/hooks": "^4.1.4",
     "@mantine/next": "^4.1.4",
+    "@mantine/prism": "^4.2.8",
     "@mobily/ts-belt": "^3.11.0",
     "@rematch/core": "^2.2.0",
     "@rematch/immer": "^2.1.3",

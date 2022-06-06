@@ -1,5 +1,5 @@
 import { Selector, selectScaleValues } from '$/logic';
-import { ThemeScaleCodeSystem, ThemeScaleCodeSystemRules } from '$code-generation';
+import { ThemeScaleCodeSystem, ThemeScaleCodeSystemRules } from '$code-generation/model';
 
 const selectCodeGenerationRelatedState =
   (rulesFromForm: ThemeScaleCodeSystemRules): Selector<ThemeScaleCodeSystem> =>

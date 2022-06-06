@@ -1,4 +1,5 @@
-import { Array } from '$/models';
+import { Array, PrefixKeys } from '$/models';
+import { Except } from 'type-fest';
 
 export type ThemeScaleCodeLine = {
   prefix: string;
@@ -59,8 +60,13 @@ export const printThemeScaleCode = (system: ThemeScaleCodeSystem): string => {
         index: `${index}`,
       })
     )
-    .map((val) => (system.indentValues ? `  ${val}` : val))
-    .join(system.lineBreaks ? '\n' : ' ');
-  const joined = [system.prefix, lines, system.postfix].join('\n');
+    .map((val) => (system.indentValues && system.lineBreaks ? `  ${val}` : val))
+    .join(system.lineBreaks ? '\n' : '');
+
+  const tabPrefixedLines = system.indentValues && !system.lineBreaks ? ` \t${lines}` : lines;
+  const joined = [system.prefix, tabPrefixedLines, system.postfix].join('\n');
   return joined;
 };
+
+export type ThemeScaleFormProps = Except<ThemeScaleCodeSystemRules, 'lineRules'> &
+  PrefixKeys<ThemeScaleCodeSystemRules['lineRules'], 'lineRules.'>;
