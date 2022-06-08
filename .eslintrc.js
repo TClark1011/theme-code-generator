@@ -28,7 +28,12 @@ module.exports = {
     'no-restricted-imports': [
       'error',
       {
-        patterns: ['$/features/**'],
+        patterns: [
+          {
+            group: ['$/features/**', '$/lib/**'],
+            message: 'Use short-form path instead ("$lib-name" or "$feature-name")',
+          },
+        ],
       },
     ],
     '@typescript-eslint/no-explicit-any': 'off',
