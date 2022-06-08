@@ -4,8 +4,8 @@ import { theme } from '$/constants';
 import { Chart } from 'chart.js';
 import { useReducedMotion } from '@mantine/hooks';
 import { useMountEffect } from '$/hooks';
-import { store } from '$/logic';
 import { Provider as StoreProvider } from 'react-redux';
+import { store } from '$/store';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const clientPrefersReducedMotion = useReducedMotion();

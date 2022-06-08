@@ -1,10 +1,10 @@
 import { ThemeScaleFormProps } from '$code-generation/model';
-import { systemToFormValues } from '$code-generation/logic';
-import { useStoreDispatch, useStoreSelector } from '$/logic';
+import { systemToFormValues, updateCodeSystemFromForm } from '$code-generation/logic';
 import { Divider, Group, SimpleGrid, Stack, Switch, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { D } from '@mobily/ts-belt';
 import { useEffect } from 'react';
+import { useStoreDispatch, useStoreSelector } from '$/store';
 
 const ThemeScaleCodeForm: React.FC = () => {
   const dispatch = useStoreDispatch();
@@ -15,7 +15,7 @@ const ThemeScaleCodeForm: React.FC = () => {
 
   useEffect(() => {
     if (D.isEmpty(errors)) {
-      dispatch.codeGeneration.updateCodeSystemFromForm(values);
+      dispatch(updateCodeSystemFromForm(values));
     }
   }, [values, errors, dispatch]);
 

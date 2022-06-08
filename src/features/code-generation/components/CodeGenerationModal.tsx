@@ -1,14 +1,19 @@
+import { setCodeGenerationModalIsOpen } from '$code-generation/logic';
+import { StoreState, useStoreDispatch, useStoreSelector } from '$/store';
 import { ThemeScaleCodeForm, GeneratedCodePreview } from '$code-generation/components';
-import { useStoreDispatch, useStoreSelector } from '$/logic';
 import { Divider, Modal } from '@mantine/core';
 
+const codeGenerationModalSelector = (state: StoreState) => ({
+  isOpen: state.codeGeneration.codeGenerationModalIsOpen,
+  scaleType: state.general.selectedScaleType,
+});
+
 const CodeGenerationModal: React.FC = () => {
-  const isOpen = useStoreSelector((s) => s.codeGeneration.codeGenerationModalIsOpen);
+  const { isOpen, scaleType } = useStoreSelector(codeGenerationModalSelector);
   const dispatch = useStoreDispatch();
-  const scaleType = useStoreSelector((s) => s.general.selectedScaleType);
 
   const handleClose = () => {
-    dispatch.codeGeneration.setCodeGenerationModalIsOpen(false);
+    dispatch(setCodeGenerationModalIsOpen(false));
   };
 
   return (

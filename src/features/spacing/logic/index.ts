@@ -1,2 +1,2 @@
-export * from './spacingStore';
-export { default as spacingStore } from './spacingStore';
+export * from './spacingReducer';
+export { default as spacingReducer } from './spacingReducer';

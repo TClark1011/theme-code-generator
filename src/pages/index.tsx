@@ -1,8 +1,8 @@
 import type { NextPage } from 'next';
 import { Box, Button } from '@mantine/core';
 import { SpacingScaleSelection, SpacingVisualization } from '$spacing';
-import { CodeGenerationModal } from '$code-generation';
-import { useStoreDispatch } from '$/logic';
+import { CodeGenerationModal, setCodeGenerationModalIsOpen } from '$code-generation';
+import { useStoreDispatch } from '$/store';
 
 const Home: NextPage = () => {
   const dispatch = useStoreDispatch();
@@ -16,9 +16,7 @@ const Home: NextPage = () => {
     >
       <SpacingVisualization />
       <SpacingScaleSelection />
-      <Button onClick={() => dispatch.codeGeneration.setCodeGenerationModalIsOpen(true)}>
-        Generate Code
-      </Button>
+      <Button onClick={() => dispatch(setCodeGenerationModalIsOpen(true))}>Generate Code</Button>
       <CodeGenerationModal />
     </Box>
   );
