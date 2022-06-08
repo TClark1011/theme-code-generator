@@ -1,30 +1,24 @@
 import { A, D } from '@mobily/ts-belt';
-import { useMemo } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Tooltip } from 'chart.js';
 import { Box, BoxProps } from '@mantine/core';
 import { useThemeColor } from '$/hooks';
 import { deriveNumberForComplexLabelValuePair } from '$/models';
-import { useStoreSelector } from '$/logic';
+import { StoreState, useStoreSelector } from '$/store';
+import { createSelector } from '@reduxjs/toolkit';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip);
 
-const useValues = () => {
-  const selectedScale = useStoreSelector((s) => s.spacing.selectedScale);
-
-  const values = useMemo(
-    () => ({
-      numericValues: (A.tail(selectedScale.values) ?? []).map(deriveNumberForComplexLabelValuePair),
-      labels: (A.tail(selectedScale.values) ?? []).map(D.getUnsafe('label')),
-    }),
-    [selectedScale]
-  );
-
-  return values;
-};
+const visualizationValuesSelector = createSelector(
+  (state: StoreState) => state.spacing.selectedScale,
+  (selectedScale) => ({
+    numericValues: (A.tail(selectedScale.values) ?? []).map(deriveNumberForComplexLabelValuePair),
+    labels: (A.tail(selectedScale.values) ?? []).map(D.getUnsafe('label')),
+  })
+);
 
 const SpacingVisualization: React.FC<BoxProps<'div'>> = (props) => {
-  const { numericValues, labels } = useValues();
+  const { numericValues, labels } = useStoreSelector(visualizationValuesSelector);
   const barColor = useThemeColor('primary');
 
   return (

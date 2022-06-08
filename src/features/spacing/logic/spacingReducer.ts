@@ -1,4 +1,6 @@
-import { spacingScales, SpacingScale } from '$spacing';
+import { SpacingScale } from '$spacing/models';
+import { findItemWithId } from '$entity-helpers';
+import { spacingScales } from '$spacing/constants';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export type SpacingState = {
@@ -13,13 +15,17 @@ const spacingSlice = createSlice({
   name: 'spacing',
   initialState,
   reducers: {
-    setSelectedScale: (state: SpacingState, { payload }: PayloadAction<SpacingScale>) => {
-      state.selectedScale = payload;
+    selectNewScaleFromId: (state: SpacingState, { payload: newScaleId }: PayloadAction<string>) => {
+      const newScale = findItemWithId(spacingScales, newScaleId);
+
+      if (!newScale) throw new Error(`Spacing scale with id '${newScaleId}' does not exist`);
+
+      state.selectedScale = newScale;
     },
   },
 });
 
-export const { setSelectedScale } = spacingSlice.actions;
+export const { selectNewScaleFromId } = spacingSlice.actions;
 
 const spacingReducer = spacingSlice.reducer;
 
