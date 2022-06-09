@@ -1,4 +1,5 @@
-import { Array, ThemeScaleUnit } from '$/models';
+import { ThemeScaleUnit } from '$/models/ThemeScale';
+import { Array } from '$/models/utilityTypes';
 import { F, flow, N } from '@mobily/ts-belt';
 
 export const spacingPxUnit: ThemeScaleUnit = {

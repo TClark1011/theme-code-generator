@@ -1,8 +1,8 @@
-import { ThemeScaleUnit } from '$/models';
+import { ThemeScaleUnit } from '$/models/ThemeScale';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { themeScaleUnitsMap } from '$/constants';
 import { findItemWithId } from '$entity-helpers';
 import { spacingPxUnit } from '$spacing';
+import themeScaleUnitsMap from '$/constants/themeScaleUnitsMap';
 
 export type ThemeScaleType = 'spacing';
 export type GeneralState = {

@@ -1,10 +1,10 @@
-import { printThemeScaleCode } from '$code-generation';
-import { Array, ThemeScale, ThemeScaleUnit } from '$/models';
-import { StoreSelector, StoreState, ThemeScaleType } from '$/store';
-import { createSelector } from '@reduxjs/toolkit';
 import { match } from 'ts-pattern';
 import { D } from '@mobily/ts-belt';
-import { expectParam } from '$/utils';
+import { StoreSelector, StoreState } from '$/store/store';
+import { ThemeScaleUnit } from '$/models/ThemeScale';
+import { createSelector } from '@reduxjs/toolkit';
+import expectParam from '$/utils/expectParam';
+import { printThemeScaleCode } from '$code-generation';
 
 export const selectActiveThemeScaleUnit: StoreSelector<ThemeScaleUnit> = createSelector(
   (s: StoreState) => s.general,

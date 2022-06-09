@@ -1,7 +1,9 @@
-import { setCodeGenerationModalIsOpen } from '$code-generation/logic';
-import { StoreState, useStoreDispatch, useStoreSelector } from '$/store';
-import { ThemeScaleCodeForm, GeneratedCodePreview } from '$code-generation/components';
+import { setCodeGenerationModalIsOpen } from '$code-generation/logic/codeGenerationReducer';
+import GeneratedCodePreview from '$code-generation/components/GeneratedCodePreview';
 import { Divider, Modal } from '@mantine/core';
+import { StoreState } from '$/store/store';
+import { useStoreDispatch, useStoreSelector } from '$/store/storeHooks';
+import ThemeScaleCodeForm from '$code-generation/components/ThemeScaleCodeForm';
 
 const codeGenerationModalSelector = (state: StoreState) => ({
   isOpen: state.codeGeneration.codeGenerationModalIsOpen,

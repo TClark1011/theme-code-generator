@@ -1,4 +1,4 @@
-import { WithId, KeyValuePair, Array } from '$/models';
+import { Array, KeyValuePair, WithId } from '$/models/utilityTypes';
 import { F } from '@mobily/ts-belt';
 
 type ThemeScale = WithId & {

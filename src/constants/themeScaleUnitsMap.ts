@@ -1,6 +1,7 @@
+import { ThemeScaleUnit } from '$/models/ThemeScale';
+import { Array } from '$/models/utilityTypes';
+import { ThemeScaleType } from '$/store/generalReducer';
 import { spacingUnits } from '$spacing';
-import { Array, ThemeScaleUnit } from '$/models';
-import { ThemeScaleType } from '$/store';
 
 const themeScaleUnitsMap: Record<ThemeScaleType, Array<ThemeScaleUnit>> = {
   spacing: spacingUnits,

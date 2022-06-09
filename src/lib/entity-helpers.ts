@@ -1,4 +1,4 @@
-import { Array, WithId } from '$/models';
+import { Array, WithId } from '$/models/utilityTypes';
 
 /* -------- Find Item With Id ------- */
 export const findItemWithId = <T extends WithId>(arr: Array<T>, id: string): T | undefined =>

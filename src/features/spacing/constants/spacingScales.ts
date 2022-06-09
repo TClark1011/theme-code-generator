@@ -1,4 +1,5 @@
-import { Array, ThemeScale } from '$/models';
+import ThemeScale from '$/models/ThemeScale';
+import { Array } from '$/models/utilityTypes';
 import { A, D, F, flow, pipe, S } from '@mobily/ts-belt';
 import { remToPx } from 'polished';
 

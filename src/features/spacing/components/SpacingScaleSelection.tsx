@@ -1,8 +1,8 @@
-import { selectNewScaleFromId } from '$spacing/logic';
-import { useStoreDispatch, useStoreSelector } from '$/store';
-import { spacingScales } from '$spacing/constants';
+import { selectNewScaleFromId } from '$spacing/logic/spacingReducer';
+import spacingScales from '$spacing/constants/spacingScales';
 import { Box, BoxProps, Select } from '@mantine/core';
 import { useCallback } from 'react';
+import { useStoreDispatch, useStoreSelector } from '$/store/storeHooks';
 const SpacingScaleSelection: React.FC<BoxProps<'div'>> = ({ ...props }) => {
   const selectedScale = useStoreSelector((s) => s.spacing.selectedScale);
   const dispatch = useStoreDispatch();
