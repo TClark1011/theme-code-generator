@@ -16,6 +16,7 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
+      // TODO: refactor paths/imports. Folders within `src` should not have index files
       "$/*": ["./src/*"],
       "$*": ["./src/features/*", "./src/lib/*"]
     }

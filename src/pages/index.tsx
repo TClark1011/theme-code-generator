@@ -2,7 +2,7 @@ import type { NextPage } from 'next';
 import { Box, Button } from '@mantine/core';
 import { SpacingScaleSelection, SpacingVisualization } from '$spacing';
 import { CodeGenerationModal, setCodeGenerationModalIsOpen } from '$code-generation';
-import { useStoreDispatch } from '$/store';
+import { useStoreDispatch } from '$/store/storeHooks';
 
 const Home: NextPage = () => {
   const dispatch = useStoreDispatch();

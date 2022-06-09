@@ -28,10 +28,25 @@ module.exports = {
     'no-restricted-imports': [
       'error',
       {
+        paths: [
+          '$/models',
+          '$/logic',
+          '$/hooks',
+          '$/utils',
+          '$/components',
+          '$/store',
+          '$/constants',
+        ].map((item) => ({
+          name: item,
+          message: 'Packages in the root must be imported directly from file',
+        })),
         patterns: [
           {
             group: ['$/features/**', '$/lib/**'],
             message: 'Use short-form path instead ("$lib-name" or "$feature-name")',
+          },
+          {
+            group: ['!$/*/*'],
           },
         ],
       },

@@ -1,11 +1,11 @@
 import type { AppProps } from 'next/app';
 import { MantineProvider } from '@mantine/core';
-import { theme } from '$/constants';
 import { Chart } from 'chart.js';
 import { useReducedMotion } from '@mantine/hooks';
-import { useMountEffect } from '$/hooks';
 import { Provider as StoreProvider } from 'react-redux';
-import { store } from '$/store';
+import store from '$/store/store';
+import theme from '$/constants/theme';
+import useMountEffect from '$/hooks/useMountEffect';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const clientPrefersReducedMotion = useReducedMotion();
@@ -17,13 +17,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   });
 
   return (
-    <MantineProvider
-      theme={{
-        ...theme,
-      }}
-      withGlobalStyles
-      withNormalizeCSS
-    >
+    <MantineProvider theme={theme} withGlobalStyles withNormalizeCSS>
       <StoreProvider store={store}>
         <Component {...pageProps} />
       </StoreProvider>

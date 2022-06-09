@@ -1,4 +1,4 @@
-import { ThemeScaleCodeSystem } from '$code-generation/model';
+import { ThemeScaleCodeSystem } from '$code-generation/models/themeCodeTypes';
 
 const defaultCodeSystem: ThemeScaleCodeSystem = {
   indentValues: true,

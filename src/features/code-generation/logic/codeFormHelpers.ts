@@ -2,19 +2,19 @@ import {
   ThemeScaleCodeSystemRules,
   ThemeScaleFormProps,
   ThemeScaleCodeLineRules,
-} from '$code-generation/model';
+} from '$code-generation/models/themeCodeTypes';
 import { D } from '@mobily/ts-belt';
 import { Except } from 'type-fest';
-
-export const removeLineRuleKeys: (
+export const removeLineRuleKeys = (
   p: ThemeScaleFormProps
-) => Except<ThemeScaleCodeSystemRules, 'lineRules'> = D.deleteKeys([
-  'lineRules.indexValueSeparator',
-  'lineRules.labelIndexSeparator',
-  'lineRules.labelIndexSeparator',
-  'lineRules.postfix',
-  'lineRules.prefix',
-]);
+): Except<ThemeScaleCodeSystemRules, 'lineRules'> =>
+  D.deleteKeys(p, [
+    'lineRules.indexValueSeparator',
+    'lineRules.labelIndexSeparator',
+    'lineRules.labelIndexSeparator',
+    'lineRules.postfix',
+    'lineRules.prefix',
+  ]);
 
 export const getLineRulesFromFormValue = (
   formValues: ThemeScaleFormProps

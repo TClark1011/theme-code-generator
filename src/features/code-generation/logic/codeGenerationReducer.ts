@@ -1,6 +1,9 @@
 import { codeFormValuesToSystemRules } from '$code-generation/logic';
 import { defaultCodeSystem } from '$code-generation/constants';
-import { ThemeScaleCodeSystemRules, ThemeScaleFormProps } from '$code-generation/model';
+import {
+  ThemeScaleCodeSystemRules,
+  ThemeScaleFormProps,
+} from '$code-generation/models/themeCodeTypes';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export type CodeGenerationState = {

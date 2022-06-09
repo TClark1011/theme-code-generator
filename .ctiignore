@@ -1,2 +1,3 @@
 src/pages/**
-src/lib/**
+src/lib/*.ts?(x)
+src/*/*.ts?(x)
