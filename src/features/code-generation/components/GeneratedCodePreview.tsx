@@ -1,4 +1,4 @@
-import { ActionIcon, Box, Code, Paper, Popper } from '@mantine/core';
+import { ActionIcon, Box, Code, Paper, Popper, ScrollArea } from '@mantine/core';
 import { useClipboard } from '@mantine/hooks';
 import { Clipboard, ClipboardCheck } from 'tabler-icons-react';
 import { useState } from 'react';
@@ -14,7 +14,7 @@ const GeneratedCodePreview: React.FC = () => {
     <>
       <Box sx={{ position: 'relative' }}>
         <Code block sx={{ width: '100%' }}>
-          {generatedCode}
+          <ScrollArea sx={{ height: 200 }}>{generatedCode}</ScrollArea>
         </Code>
         <ActionIcon
           sx={{ position: 'absolute', top: 8, right: 8 }}
