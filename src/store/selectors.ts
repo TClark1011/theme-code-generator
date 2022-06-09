@@ -1,22 +1,20 @@
 import { match } from 'ts-pattern';
-import { D } from '@mobily/ts-belt';
 import { StoreSelector, StoreState } from '$/store/store';
 import { ThemeScaleUnit } from '$/models/ThemeScale';
 import { createSelector } from '@reduxjs/toolkit';
-import expectParam from '$/utils/expectParam';
 import { printThemeScaleCode } from '$code-generation';
 import { findItemWithId } from '$entity-helpers';
 import themeScaleUnitsMap from '$/constants/themeScaleUnitsMap';
-import { Array } from '$/models/utilityTypes';
+import { Array, KeyValuePair } from '$/models/utilityTypes';
 
-export const selectApplicableThemeScaleUnits: StoreSelector<Array<ThemeScaleUnit>> = createSelector(
+export const selectApplicableThemeScaleUnits = createSelector(
   (s: StoreState) => s.general,
-  (state) => themeScaleUnitsMap[state.selectedScaleType]
+  (state): Array<ThemeScaleUnit> => themeScaleUnitsMap[state.selectedScaleType]
 );
 
-export const selectActiveThemeScaleUnit: StoreSelector<ThemeScaleUnit> = createSelector(
+export const selectActiveThemeScaleUnit = createSelector(
   (s: StoreState) => s.general,
-  (general) => {
+  (general): ThemeScaleUnit => {
     const selectedScaleType = general.selectedScaleType;
     const activeUnitId = general.selectedUnitIds[selectedScaleType];
     const validScales = themeScaleUnitsMap[selectedScaleType];
@@ -29,26 +27,20 @@ export const selectActiveThemeScaleUnit: StoreSelector<ThemeScaleUnit> = createS
   }
 );
 
-export const selectActiveScaleValues: StoreSelector<Array<string>> = createSelector(
-  (s: StoreState) => s,
-  (state) =>
-    match(state.general.selectedScaleType)
-      .with('spacing', () => state.spacing.selectedScale.values.map(D.getUnsafe('value')))
-      .exhaustive()
-);
+export const selectActiveScaleValues: StoreSelector<Array<KeyValuePair<string>>> = (state) =>
+  match(state.general.selectedScaleType)
+    .with('spacing', () => state.spacing.selectedScale.values)
+    .exhaustive();
 
-export const selectGeneratedCode: StoreSelector<string> = createSelector(
-  expectParam<StoreState>(),
-  (state: StoreState) => {
-    const selectedUnit = selectActiveThemeScaleUnit(state);
-    const codeSystem = state.codeGeneration.codeSystemRules;
-    const values = selectActiveScaleValues(state);
+export const selectGeneratedCode: StoreSelector<string> = (state: StoreState) => {
+  const selectedUnit = selectActiveThemeScaleUnit(state);
+  const codeSystem = state.codeGeneration.codeSystemRules;
+  const values = selectActiveScaleValues(state);
 
-    const generatedCode = printThemeScaleCode(
-      { ...codeSystem, values, label: state.general.selectedScaleType },
-      selectedUnit
-    );
+  const generatedCode = printThemeScaleCode(
+    { ...codeSystem, values, label: state.general.selectedScaleType },
+    selectedUnit
+  );
 
-    return generatedCode;
-  }
-);
+  return generatedCode;
+};

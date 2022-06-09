@@ -1,5 +1,5 @@
 import { stubThemeScaleUnit, ThemeScaleUnit } from '$/models/ThemeScale';
-import { Array, PrefixKeys } from '$/models/utilityTypes';
+import { Array, KeyValuePair, PrefixKeys } from '$/models/utilityTypes';
 import { Except } from 'type-fest';
 
 export type ThemeScaleCodeLine = {
@@ -44,7 +44,7 @@ export type ThemeScaleCodeSystem = {
   lineBreaks: boolean;
   lineRules: ThemeScaleCodeLineRules;
   label: string;
-  values: Array<string>;
+  values: Array<KeyValuePair<string>>;
   indentValues: boolean;
 };
 
@@ -59,13 +59,13 @@ export const printThemeScaleCode = (
   unit: ThemeScaleUnit = stubThemeScaleUnit
 ): string => {
   const lines = system.values
-    .map((v, key) =>
+    .map(({ value, key }) =>
       printThemeScaleCodeLine(
         {
           ...system.lineRules,
-          value: v,
+          value,
           label: system.label,
-          key: `${key}`,
+          key,
         },
         unit
       )
