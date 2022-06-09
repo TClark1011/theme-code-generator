@@ -1,5 +1,5 @@
 import { stubThemeScaleUnit, ThemeScaleUnit } from '$/models/ThemeScale';
-import { PrefixKeys } from '$/models/utilityTypes';
+import { Array, PrefixKeys } from '$/models/utilityTypes';
 import { Except } from 'type-fest';
 
 export type ThemeScaleCodeLine = {

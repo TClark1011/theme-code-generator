@@ -2,21 +2,8 @@ import { ActionIcon, Box, Code, Paper, Popper } from '@mantine/core';
 import { useClipboard } from '@mantine/hooks';
 import { Clipboard, ClipboardCheck } from 'tabler-icons-react';
 import { useState } from 'react';
-import { printThemeScaleCode } from '$code-generation/models/themeCodeTypes';
-import { StoreSelector } from '$/store/store';
 import { useStoreSelector } from '$/store/storeHooks';
-
-const selectGeneratedCode: StoreSelector<string> = ({ codeGeneration, general, spacing }) => {
-  const { codeSystemRules } = codeGeneration;
-  const values = spacing.selectedScale.values;
-  const selectedScaleType = general.selectedScaleType;
-
-  return printThemeScaleCode({
-    ...codeSystemRules,
-    values: values.map((v) => v.value).map(String),
-    label: selectedScaleType,
-  });
-};
+import { selectGeneratedCode } from '$/store/selectors';
 
 const GeneratedCodePreview: React.FC = () => {
   const generatedCode = useStoreSelector(selectGeneratedCode);

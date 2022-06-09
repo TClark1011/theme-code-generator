@@ -5,12 +5,25 @@ import { ThemeScaleUnit } from '$/models/ThemeScale';
 import { createSelector } from '@reduxjs/toolkit';
 import expectParam from '$/utils/expectParam';
 import { printThemeScaleCode } from '$code-generation';
+import { findItemWithId } from '$entity-helpers';
+import themeScaleUnitsMap from '$/constants/themeScaleUnitsMap';
+import { Array } from '$/models/utilityTypes';
+
+export const selectApplicableThemeScaleUnits: StoreSelector<Array<ThemeScaleUnit>> = createSelector(
+  (s: StoreState) => s.general,
+  (state) => themeScaleUnitsMap[state.selectedScaleType]
+);
 
 export const selectActiveThemeScaleUnit: StoreSelector<ThemeScaleUnit> = createSelector(
   (s: StoreState) => s.general,
   (general) => {
     const selectedScaleType = general.selectedScaleType;
-    const activeUnit = general.selectedUnits[selectedScaleType];
+    const activeUnitId = general.selectedUnitIds[selectedScaleType];
+    const validScales = themeScaleUnitsMap[selectedScaleType];
+
+    const activeUnit = findItemWithId(validScales, activeUnitId);
+
+    if (!activeUnit) throw new Error(`Theme scale unit with id '${activeUnitId}' does not exist`);
 
     return activeUnit;
   }
