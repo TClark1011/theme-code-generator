@@ -64,9 +64,9 @@ const ThemeScaleCodeForm: React.FC = () => {
             {...getInputProps('lineRules.showLabel')}
           />
           <Switch
-            label="Show Indexes "
-            checked={values['lineRules.showIndex']}
-            {...getInputProps('lineRules.showIndex')}
+            label="Show Keyes "
+            checked={values['lineRules.showKey']}
+            {...getInputProps('lineRules.showKey')}
           />
         </SimpleGrid>
       </Group>
@@ -74,14 +74,14 @@ const ThemeScaleCodeForm: React.FC = () => {
       <Group direction="column">
         <SimpleGrid cols={2} sx={{ width: '100%' }}>
           <TextInput
-            label="Label -> Index Separator"
-            {...getInputProps('lineRules.labelIndexSeparator')}
+            label="Label -> Key Separator"
+            {...getInputProps('lineRules.labelKeySeparator')}
             disabled={!values['lineRules.showLabel']}
           />
           <TextInput
-            label="Index -> Value Separator"
-            {...getInputProps('lineRules.indexValueSeparator')}
-            disabled={!values['lineRules.showIndex']}
+            label="Key -> Value Separator"
+            {...getInputProps('lineRules.keyValueSeparator')}
+            disabled={!values['lineRules.showKey']}
           />
           <TextInput label="Prefix" {...getInputProps('lineRules.prefix')} />
           <TextInput label="Postfix" {...getInputProps('lineRules.postfix')} />

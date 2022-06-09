@@ -9,9 +9,9 @@ export const removeLineRuleKeys = (
   p: ThemeScaleFormProps
 ): Except<ThemeScaleCodeSystemRules, 'lineRules'> =>
   D.deleteKeys(p, [
-    'lineRules.indexValueSeparator',
-    'lineRules.labelIndexSeparator',
-    'lineRules.labelIndexSeparator',
+    'lineRules.keyValueSeparator',
+    'lineRules.labelKeySeparator',
+    'lineRules.labelKeySeparator',
     'lineRules.postfix',
     'lineRules.prefix',
   ]);
@@ -19,12 +19,12 @@ export const removeLineRuleKeys = (
 export const getLineRulesFromFormValue = (
   formValues: ThemeScaleFormProps
 ): ThemeScaleCodeLineRules => ({
-  indexValueSeparator: formValues['lineRules.indexValueSeparator'],
-  labelIndexSeparator: formValues['lineRules.labelIndexSeparator'],
+  keyValueSeparator: formValues['lineRules.keyValueSeparator'],
+  labelKeySeparator: formValues['lineRules.labelKeySeparator'],
   postfix: formValues['lineRules.postfix'],
   prefix: formValues['lineRules.prefix'],
   showLabel: formValues['lineRules.showLabel'],
-  showIndex: formValues['lineRules.showIndex'],
+  showKey: formValues['lineRules.showKey'],
 });
 
 export const codeFormValuesToSystemRules = (
@@ -35,12 +35,12 @@ export const codeFormValuesToSystemRules = (
 });
 
 export const systemToFormValues = (system: ThemeScaleCodeSystemRules): ThemeScaleFormProps => ({
-  'lineRules.indexValueSeparator': system.lineRules.indexValueSeparator,
-  'lineRules.labelIndexSeparator': system.lineRules.labelIndexSeparator,
+  'lineRules.keyValueSeparator': system.lineRules.keyValueSeparator,
+  'lineRules.labelKeySeparator': system.lineRules.labelKeySeparator,
   'lineRules.postfix': system.lineRules.postfix,
   'lineRules.prefix': system.lineRules.prefix,
   'lineRules.showLabel': system.lineRules.showLabel,
-  'lineRules.showIndex': system.lineRules.showIndex,
+  'lineRules.showKey': system.lineRules.showKey,
   indentValues: system.indentValues,
   lineBreaks: system.lineBreaks,
   postfix: system.postfix,

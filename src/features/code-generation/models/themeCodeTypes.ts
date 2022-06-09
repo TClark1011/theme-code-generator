@@ -4,37 +4,36 @@ import { Except } from 'type-fest';
 
 export type ThemeScaleCodeLine = {
   prefix: string;
-  labelIndexSeparator: string;
-  indexValueSeparator: string;
+  labelKeySeparator: string;
+  keyValueSeparator: string;
   postfix: string;
   label: string;
-  index: string;
+  key: string;
   value: string;
   showLabel: boolean;
-  showIndex: boolean;
+  showKey: boolean;
 };
 
-export type ThemeScaleCodeLineRules = Omit<ThemeScaleCodeLine, 'index' | 'label' | 'value'>;
+export type ThemeScaleCodeLineRules = Omit<ThemeScaleCodeLine, 'key' | 'label' | 'value'>;
 
-//TODO: RENAME USES OF THE FIELD NAMES 'index' AND 'label'. 'index' SHOULD BECOME 'key', CURRENTLY UNDECIDED WHAT TO CHANGE 'label' to,
 export const printThemeScaleCodeLine = (
   {
     prefix,
     label,
-    index,
-    labelIndexSeparator,
-    indexValueSeparator,
+    key,
+    labelKeySeparator,
+    keyValueSeparator,
     value,
     postfix,
     showLabel,
-    showIndex,
+    showKey,
   }: ThemeScaleCodeLine,
   unit: ThemeScaleUnit = stubThemeScaleUnit
 ): string =>
   [
     prefix,
-    ...(showLabel ? [label, labelIndexSeparator] : []),
-    ...(showIndex ? [index, indexValueSeparator] : []),
+    ...(showLabel ? [label, labelKeySeparator] : []),
+    ...(showKey ? [key, keyValueSeparator] : []),
     unit.converter(value),
     postfix,
   ].join('');
@@ -60,13 +59,13 @@ export const printThemeScaleCode = (
   unit: ThemeScaleUnit = stubThemeScaleUnit
 ): string => {
   const lines = system.values
-    .map((v, index) =>
+    .map((v, key) =>
       printThemeScaleCodeLine(
         {
           ...system.lineRules,
           value: v,
           label: system.label,
-          index: `${index}`,
+          key: `${key}`,
         },
         unit
       )

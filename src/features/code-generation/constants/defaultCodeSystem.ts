@@ -8,11 +8,11 @@ const defaultCodeSystem: ThemeScaleCodeSystem = {
   prefix: '',
   values: [],
   lineRules: {
-    indexValueSeparator: ' ',
-    labelIndexSeparator: ' ',
+    keyValueSeparator: ' ',
+    labelKeySeparator: ' ',
     postfix: '',
     prefix: '',
-    showIndex: true,
+    showKey: true,
     showLabel: true,
   },
 };
