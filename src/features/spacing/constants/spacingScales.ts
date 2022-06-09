@@ -1,4 +1,4 @@
-import { SpacingScale } from '$spacing';
+import { Array, ThemeScale } from '$/models';
 import { A, D, F, flow, pipe, S } from '@mobily/ts-belt';
 import { remToPx } from 'polished';
 
@@ -45,14 +45,13 @@ const pricelineGenerator: (index: number) => number = F.memoizeWithKey(String, (
   index > 1 ? pricelineGenerator(index - 1) * 2 : index * 4
 );
 
-const spacingScales: SpacingScale[] = [
+const spacingScales: Array<ThemeScale> = [
   {
     id: 'grid4',
     name: 'Grid',
     values: A.makeWithIndex(25, (i) => ({
-      label: `${i}`,
-      value: i * 4,
-      numericValueDeriver: Number,
+      key: `${i}`,
+      value: `${i * 4}`,
     })),
   },
   {
@@ -62,20 +61,18 @@ const spacingScales: SpacingScale[] = [
       tailwindDefaultSpacing,
       D.toPairs,
       A.map(([key, value]) => ({
-        label: `${key}`,
-        value: value,
-        numericValueDeriver: flow(String, convertRemStringToPxNumber),
+        key: `${key}`,
+        value: pipe(value, convertRemStringToPxNumber, String),
       })),
-      A.sortBy(flow(D.getUnsafe('label'), Number))
+      A.sortBy(flow(D.getUnsafe('key'), Number))
     ),
   },
   {
     id: 'priceline',
     name: 'Priceline',
     values: A.makeWithIndex(7, (i) => ({
-      label: `${i}`,
-      value: pricelineGenerator(i),
-      numericValueDeriver: Number,
+      key: `${i}`,
+      value: pipe(i, pricelineGenerator, String),
     })),
   },
 ];

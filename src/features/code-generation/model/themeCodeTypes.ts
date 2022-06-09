@@ -1,4 +1,4 @@
-import { Array, PrefixKeys } from '$/models';
+import { Array, PrefixKeys, stubThemeScaleUnit, ThemeScaleUnit } from '$/models';
 import { Except } from 'type-fest';
 
 export type ThemeScaleCodeLine = {
@@ -15,22 +15,26 @@ export type ThemeScaleCodeLine = {
 
 export type ThemeScaleCodeLineRules = Omit<ThemeScaleCodeLine, 'index' | 'label' | 'value'>;
 
-export const printThemeScaleCodeLine = ({
-  prefix,
-  label,
-  index,
-  labelIndexSeparator,
-  indexValueSeparator,
-  value,
-  postfix,
-  showLabel,
-  showIndex,
-}: ThemeScaleCodeLine): string =>
+//TODO: RENAME USES OF THE FIELD NAMES 'index' AND 'label'. 'index' SHOULD BECOME 'key', CURRENTLY UNDECIDED WHAT TO CHANGE 'label' to,
+export const printThemeScaleCodeLine = (
+  {
+    prefix,
+    label,
+    index,
+    labelIndexSeparator,
+    indexValueSeparator,
+    value,
+    postfix,
+    showLabel,
+    showIndex,
+  }: ThemeScaleCodeLine,
+  unit: ThemeScaleUnit = stubThemeScaleUnit
+): string =>
   [
     prefix,
     ...(showLabel ? [label, labelIndexSeparator] : []),
     ...(showIndex ? [index, indexValueSeparator] : []),
-    value,
+    unit.converter(value),
     postfix,
   ].join('');
 
@@ -50,21 +54,27 @@ export type ThemeScaleCodeSystemValues = Omit<
   keyof ThemeScaleCodeSystemRules
 >;
 
-export const printThemeScaleCode = (system: ThemeScaleCodeSystem): string => {
+export const printThemeScaleCode = (
+  system: ThemeScaleCodeSystem,
+  unit: ThemeScaleUnit = stubThemeScaleUnit
+): string => {
   const lines = system.values
     .map((v, index) =>
-      printThemeScaleCodeLine({
-        ...system.lineRules,
-        value: v,
-        label: system.label,
-        index: `${index}`,
-      })
-    )
-    .map((val) => (system.indentValues && system.lineBreaks ? `  ${val}` : val))
-    .join(system.lineBreaks ? '\n' : '');
+      printThemeScaleCodeLine(
+        {
+          ...system.lineRules,
+          value: v,
+          label: system.label,
+          index: `${index}`,
+        },
+        unit
+      )
+    ) //First we convert each line item to code
+    .map((val) => (system.indentValues && system.lineBreaks ? `  ${val}` : val)) // If we are using line breaks and indentation, we indent each line
+    .join(system.lineBreaks ? '\n' : ''); // We apply line breaks if we are using them
 
-  const tabPrefixedLines = system.indentValues && !system.lineBreaks ? ` \t${lines}` : lines;
-  const joined = [system.prefix, tabPrefixedLines, system.postfix].join('\n');
+  const tabPrefixedLines = system.indentValues && !system.lineBreaks ? ` \t${lines}` : lines; //If using indentation but not line breaks, we add a single indent to the single line
+  const joined = [system.prefix, tabPrefixedLines, system.postfix].join('\n'); // We join the lines and the general prefix/postfix, separated by line breaks
   return joined;
 };
 

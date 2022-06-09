@@ -1,10 +1,10 @@
-import { SpacingScale } from '$spacing/models';
+import { ThemeScale } from '$/models';
 import { findItemWithId } from '$entity-helpers';
 import { spacingScales } from '$spacing/constants';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export type SpacingState = {
-  selectedScale: SpacingScale;
+  selectedScale: ThemeScale;
 };
 
 const initialState: SpacingState = {

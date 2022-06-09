@@ -1,6 +1,6 @@
 import { generalReducer } from '$/store';
 import { codeGenerationReducer } from '$code-generation';
-import { spacingReducer } from '$spacing';
+import { spacingReducer } from '$spacing/logic';
 import { configureStore } from '@reduxjs/toolkit';
 
 const store = configureStore({

@@ -14,6 +14,11 @@ export type LabelValuePair<T> = {
   value: T;
 };
 
+export type KeyValuePair<T> = {
+  key: string;
+  value: T;
+};
+
 export type LabelValuePairWithNumericDeriver<T> = LabelValuePair<T> & {
   numericValueDeriver: (value: T) => number;
 };
