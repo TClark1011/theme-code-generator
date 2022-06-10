@@ -18,26 +18,46 @@ import {
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { D, F, flow } from '@mobily/ts-belt';
-import { selectActiveThemeScaleUnit, selectApplicableThemeScaleUnits } from '$/store/selectors';
+import {
+  selectActivePresetItem,
+  selectActiveThemeScaleUnit,
+  selectApplicableThemeScaleUnits,
+} from '$/store/selectors';
 import { ThemeScaleUnit } from '$/models/ThemeScale';
 import { selectNewScaleUnitFromId } from '$/store/generalReducer';
-import { useDisclosure } from '@mantine/hooks';
+import { useDidUpdate, useDisclosure } from '@mantine/hooks';
 import useDeferredEffect from '$/hooks/useDeferredEffect';
+import PresetDropdown from '$code-generation/components/PresetDropdown';
+import { createSelector } from '@reduxjs/toolkit';
+import { CodePresetItem } from '$code-generation/constants/codePresets';
 
 const composeScaleUnitSelectItem = ({ id, name }: ThemeScaleUnit): SelectItem => ({
   value: id,
   label: name,
 });
 
+const selectActivePresetFormValues = createSelector(
+  selectActivePresetItem,
+  (s: CodePresetItem | undefined): ThemeScaleFormProps | undefined =>
+    s?.data ? systemToFormValues(s?.data) : undefined
+);
+
 const ThemeScaleCodeForm: React.FC = () => {
   const dispatch = useStoreDispatch();
   const currentSystem = useStoreSelector((s) => s.codeGeneration.codeSystemRules);
   const selectableScales = useStoreSelector(selectApplicableThemeScaleUnits);
   const selectedScale = useStoreSelector(selectActiveThemeScaleUnit);
+  const selectedPresetFormValues = useStoreSelector(selectActivePresetFormValues);
 
-  const { getInputProps, values, errors } = useForm<ThemeScaleFormProps>({
+  const { getInputProps, values, errors, setValues } = useForm<ThemeScaleFormProps>({
     initialValues: systemToFormValues(currentSystem),
   });
+
+  useDidUpdate(() => {
+    if (selectedPresetFormValues) {
+      setValues(selectedPresetFormValues);
+    }
+  }, [selectedPresetFormValues]);
 
   const [
     keyDecimalPointSubstitutionIsEnabled,
@@ -47,6 +67,10 @@ const ThemeScaleCodeForm: React.FC = () => {
   useDeferredEffect((deferredFormValues) => {
     if (D.isEmpty(errors)) {
       dispatch(updateCodeSystemFromForm(deferredFormValues));
+    }
+
+    if (values['lineRules.keyDecimalPointSubstitution'] && !keyDecimalPointSubstitutionIsEnabled) {
+      toggleKeyDecimalPointSubstitutionIsEnabled();
     }
   }, values);
 
@@ -62,6 +86,8 @@ const ThemeScaleCodeForm: React.FC = () => {
 
   return (
     <Stack>
+      <PresetDropdown />
+      <Divider />
       <Group direction="column">
         <Group sx={{ width: '100%' }}>
           <TextInput sx={{ flex: 1 }} label="prefix" {...getInputProps('prefix')} />

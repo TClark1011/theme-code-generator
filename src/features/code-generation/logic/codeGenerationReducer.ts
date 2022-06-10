@@ -9,11 +9,13 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 export type CodeGenerationState = {
   codeSystemRules: ThemeScaleCodeSystemRules;
   codeGenerationModalIsOpen: boolean;
+  selectedPresetName: string | undefined;
 };
 
 const initialState: CodeGenerationState = {
   codeSystemRules: defaultCodeSystem,
   codeGenerationModalIsOpen: false,
+  selectedPresetName: undefined,
 };
 
 const codeGenerationSlice = createSlice({
@@ -42,6 +44,9 @@ const codeGenerationSlice = createSlice({
     ) => {
       state.codeSystemRules.lineRules.keyDecimalPointSubstitution = payload;
     },
+    setSelectedPresetName: (state: CodeGenerationState, { payload }: PayloadAction<string>) => {
+      state.selectedPresetName = payload;
+    },
   },
 });
 
@@ -50,6 +55,7 @@ export const {
   updateCodeSystemFromForm,
   disableDecimalPointSubstitutionInKeys,
   enableDecimalPointSubstitutionInKeys,
+  setSelectedPresetName,
 } = codeGenerationSlice.actions;
 
 const codeGenerationReducer = codeGenerationSlice.reducer;

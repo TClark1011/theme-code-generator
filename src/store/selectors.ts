@@ -2,14 +2,19 @@ import { match } from 'ts-pattern';
 import { StoreSelector, StoreState } from '$/store/store';
 import { ThemeScaleUnit } from '$/models/ThemeScale';
 import { createSelector } from '@reduxjs/toolkit';
-import { printThemeScaleCode } from '$code-generation';
+import { CodePresetItem, codePresets, printThemeScaleCode } from '$code-generation';
 import { findItemWithId } from '$entity-helpers';
 import themeScaleUnitsMap from '$/constants/themeScaleUnitsMap';
 import { Array, KeyValuePair } from '$/models/utilityTypes';
 
 export const selectApplicableThemeScaleUnits = createSelector(
-  (s: StoreState) => s.general,
-  (state): Array<ThemeScaleUnit> => themeScaleUnitsMap[state.selectedScaleType]
+  (s: StoreState) => s.general.selectedScaleType,
+  (scaleType): Array<ThemeScaleUnit> => themeScaleUnitsMap[scaleType]
+);
+
+export const selectApplicablePresetItems = createSelector(
+  (s: StoreState) => s.general.selectedScaleType,
+  (scaleType): Array<CodePresetItem> => codePresets[scaleType]
 );
 
 export const selectActiveThemeScaleUnit = createSelector(
@@ -43,4 +48,13 @@ export const selectGeneratedCode: StoreSelector<string> = (state: StoreState) =>
   );
 
   return generatedCode;
+};
+
+export const selectActivePresetItem: StoreSelector<CodePresetItem | undefined> = (state) => {
+  const selectedPresetName = state.codeGeneration.selectedPresetName;
+  const presets = selectApplicablePresetItems(state);
+
+  const activePreset = presets.find((preset) => preset.name === selectedPresetName);
+
+  return activePreset;
 };

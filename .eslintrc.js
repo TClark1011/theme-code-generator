@@ -42,11 +42,8 @@ module.exports = {
         })),
         patterns: [
           {
-            group: ['$/features/**', '$/lib/**'],
+            group: ['!$/*/*', '$/features', '$/lib'],
             message: 'Use short-form path instead ("$lib-name" or "$feature-name")',
-          },
-          {
-            group: ['!$/*/*'],
           },
         ],
       },
