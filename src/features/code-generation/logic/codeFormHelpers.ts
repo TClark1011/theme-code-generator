@@ -3,18 +3,16 @@ import {
   ThemeScaleFormProps,
   ThemeScaleCodeLineRules,
 } from '$code-generation/models/themeCodeTypes';
-import { D } from '@mobily/ts-belt';
+import { D, S } from '@mobily/ts-belt';
 import { Except } from 'type-fest';
+
 export const removeLineRuleKeys = (
   p: ThemeScaleFormProps
 ): Except<ThemeScaleCodeSystemRules, 'lineRules'> =>
-  D.deleteKeys(p, [
-    'lineRules.keyValueSeparator',
-    'lineRules.labelKeySeparator',
-    'lineRules.labelKeySeparator',
-    'lineRules.postfix',
-    'lineRules.prefix',
-  ]);
+  D.rejectWithKey(p, (key) => S.includes(key, 'lineRules.')) as Except<
+    ThemeScaleCodeSystemRules,
+    'lineRules'
+  >;
 
 export const getLineRulesFromFormValue = (
   formValues: ThemeScaleFormProps
@@ -25,6 +23,7 @@ export const getLineRulesFromFormValue = (
   prefix: formValues['lineRules.prefix'],
   showLabel: formValues['lineRules.showLabel'],
   showKey: formValues['lineRules.showKey'],
+  keyDecimalPointSubstitution: formValues['lineRules.keyDecimalPointSubstitution'],
 });
 
 export const codeFormValuesToSystemRules = (
@@ -41,6 +40,7 @@ export const systemToFormValues = (system: ThemeScaleCodeSystemRules): ThemeScal
   'lineRules.prefix': system.lineRules.prefix,
   'lineRules.showLabel': system.lineRules.showLabel,
   'lineRules.showKey': system.lineRules.showKey,
+  'lineRules.keyDecimalPointSubstitution': system.lineRules.keyDecimalPointSubstitution,
   indentValues: system.indentValues,
   lineBreaks: system.lineBreaks,
   postfix: system.postfix,
