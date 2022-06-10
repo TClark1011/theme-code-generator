@@ -33,11 +33,24 @@ const codeGenerationSlice = createSlice({
     ) => {
       state.codeGenerationModalIsOpen = payload;
     },
+    disableDecimalPointSubstitutionInKeys: (state: CodeGenerationState) => {
+      state.codeSystemRules.lineRules.keyDecimalPointSubstitution = undefined;
+    },
+    enableDecimalPointSubstitutionInKeys: (
+      state: CodeGenerationState,
+      { payload }: PayloadAction<string>
+    ) => {
+      state.codeSystemRules.lineRules.keyDecimalPointSubstitution = payload;
+    },
   },
 });
 
-export const { setCodeGenerationModalIsOpen, updateCodeSystemFromForm } =
-  codeGenerationSlice.actions;
+export const {
+  setCodeGenerationModalIsOpen,
+  updateCodeSystemFromForm,
+  disableDecimalPointSubstitutionInKeys,
+  enableDecimalPointSubstitutionInKeys,
+} = codeGenerationSlice.actions;
 
 const codeGenerationReducer = codeGenerationSlice.reducer;
 

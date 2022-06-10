@@ -1,5 +1,6 @@
 import { stubThemeScaleUnit, ThemeScaleUnit } from '$/models/ThemeScale';
 import { Array, KeyValuePair, PrefixKeys } from '$/models/utilityTypes';
+import { F, S } from '@mobily/ts-belt';
 import { Except } from 'type-fest';
 
 export type ThemeScaleCodeLine = {
@@ -12,9 +13,17 @@ export type ThemeScaleCodeLine = {
   value: string;
   showLabel: boolean;
   showKey: boolean;
+  keyDecimalPointSubstitution: string | undefined;
 };
 
 export type ThemeScaleCodeLineRules = Omit<ThemeScaleCodeLine, 'key' | 'label' | 'value'>;
+
+const composeDecimalPointReplacer = (
+  keyDecimalPointSubstitution?: string
+): ((p: string) => string) =>
+  keyDecimalPointSubstitution === undefined
+    ? F.identity
+    : S.replaceAll('.', keyDecimalPointSubstitution);
 
 export const printThemeScaleCodeLine = (
   {
@@ -27,16 +36,19 @@ export const printThemeScaleCodeLine = (
     postfix,
     showLabel,
     showKey,
+    keyDecimalPointSubstitution,
   }: ThemeScaleCodeLine,
   unit: ThemeScaleUnit = stubThemeScaleUnit
-): string =>
-  [
+): string => {
+  const decimalPointReplacer = composeDecimalPointReplacer(keyDecimalPointSubstitution);
+  return [
     prefix,
     ...(showLabel ? [label, labelKeySeparator] : []),
-    ...(showKey ? [key, keyValueSeparator] : []),
+    ...(showKey ? [decimalPointReplacer(key), keyValueSeparator] : []),
     unit.converter(value),
     postfix,
   ].join('');
+};
 
 export type ThemeScaleCodeSystem = {
   postfix: string;

@@ -1,6 +1,10 @@
 import { ThemeScaleFormProps } from '$code-generation/models/themeCodeTypes';
 import { useStoreDispatch, useStoreSelector } from '$/store/storeHooks';
-import { updateCodeSystemFromForm } from '$code-generation/logic/codeGenerationReducer';
+import {
+  disableDecimalPointSubstitutionInKeys,
+  enableDecimalPointSubstitutionInKeys,
+  updateCodeSystemFromForm,
+} from '$code-generation/logic/codeGenerationReducer';
 import { systemToFormValues } from '$code-generation/logic/codeFormHelpers';
 import {
   Divider,
@@ -14,10 +18,11 @@ import {
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { D, F, flow } from '@mobily/ts-belt';
-import { useEffect } from 'react';
 import { selectActiveThemeScaleUnit, selectApplicableThemeScaleUnits } from '$/store/selectors';
 import { ThemeScaleUnit } from '$/models/ThemeScale';
 import { selectNewScaleUnitFromId } from '$/store/generalReducer';
+import { useDisclosure } from '@mantine/hooks';
+import useDeferredEffect from '$/hooks/useDeferredEffect';
 
 const composeScaleUnitSelectItem = ({ id, name }: ThemeScaleUnit): SelectItem => ({
   value: id,
@@ -34,11 +39,26 @@ const ThemeScaleCodeForm: React.FC = () => {
     initialValues: systemToFormValues(currentSystem),
   });
 
-  useEffect(() => {
+  const [
+    keyDecimalPointSubstitutionIsEnabled,
+    { toggle: toggleKeyDecimalPointSubstitutionIsEnabled },
+  ] = useDisclosure(values['lineRules.keyDecimalPointSubstitution'] !== undefined);
+
+  useDeferredEffect((deferredFormValues) => {
     if (D.isEmpty(errors)) {
-      dispatch(updateCodeSystemFromForm(values));
+      dispatch(updateCodeSystemFromForm(deferredFormValues));
     }
-  }, [values, errors, dispatch]);
+  }, values);
+
+  useDeferredEffect((enabled) => {
+    if (!enabled) {
+      dispatch(disableDecimalPointSubstitutionInKeys());
+    } else if (values['lineRules.keyDecimalPointSubstitution']) {
+      dispatch(
+        enableDecimalPointSubstitutionInKeys(values['lineRules.keyDecimalPointSubstitution'])
+      );
+    }
+  }, keyDecimalPointSubstitutionIsEnabled);
 
   return (
     <Stack>
@@ -67,6 +87,16 @@ const ThemeScaleCodeForm: React.FC = () => {
             label="Show Keyes "
             checked={values['lineRules.showKey']}
             {...getInputProps('lineRules.showKey')}
+          />
+          <Switch
+            label="Replace Decimal Points In Keys"
+            wrapperProps={{ style: { flexDirection: 'row-reverse' } }}
+            checked={keyDecimalPointSubstitutionIsEnabled}
+            onChange={toggleKeyDecimalPointSubstitutionIsEnabled}
+          />
+          <TextInput
+            {...getInputProps('lineRules.keyDecimalPointSubstitution')}
+            disabled={!keyDecimalPointSubstitutionIsEnabled}
           />
         </SimpleGrid>
       </Group>

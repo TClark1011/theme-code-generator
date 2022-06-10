@@ -14,6 +14,7 @@ const defaultCodeSystem: ThemeScaleCodeSystem = {
     prefix: '',
     showKey: true,
     showLabel: true,
+    keyDecimalPointSubstitution: undefined,
   },
 };
 
