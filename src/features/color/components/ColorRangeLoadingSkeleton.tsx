@@ -1,14 +1,14 @@
-import { Skeleton, Stack } from '@mantine/core';
+import { Box, Skeleton } from '@mantine/core';
 import { A, F } from '@mobily/ts-belt';
 
 const arr = A.makeWithIndex(10, F.identity);
 
 const ColorRangeLoadingSkeleton: React.FC = () => (
-  <Stack>
+  <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
     {arr.map((num) => (
-      <Skeleton key={num} height={32} width="100%" />	// eslint-disable-line
+      <Skeleton key={num} width={64} height={64}/>	// eslint-disable-line
     ))}
-  </Stack>
+  </Box>
 );
 
 export default ColorRangeLoadingSkeleton;
