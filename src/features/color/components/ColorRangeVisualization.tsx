@@ -1,5 +1,5 @@
 import { Array } from '$/models/utilityTypes';
-import { ColorSwatch, Stack } from '@mantine/core';
+import { Box, ColorSwatch } from '@mantine/core';
 
 export type ColorRangeVisualizationProps = {
   colors: Array<string>;
@@ -7,18 +7,18 @@ export type ColorRangeVisualizationProps = {
 
 const ColorRangeVisualization = ({ colors }: ColorRangeVisualizationProps) => {
   return (
-    <Stack>
+    <Box
+      sx={{
+        display: 'flex',
+        width: '100%',
+        flexWrap: 'wrap',
+        justifyContent: 'space-between',
+      }}
+    >
       {colors.map((color) => (
-        <ColorSwatch
-          radius="md"
-          sx={{
-            width: '100%',
-          }}
-          key={color}
-          color={color}
-        />
+        <ColorSwatch radius="md" size={64} key={color} color={color} />
       ))}
-    </Stack>
+    </Box>
   );
 };
 

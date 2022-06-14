@@ -22,16 +22,17 @@ const Home: NextPage = () => {
               ad adipisicing eiusmod ea ea officia.
             </Text>
           </Box>
+          <ScaleSwitcher />
           <Stack>
-            <ScaleSwitcher />
-            <ActiveVisualization />
             <ActiveScaleSelection />
+            <ActiveVisualization />
           </Stack>
           <Divider />
           <Box>
             <Title order={2}>Generate Code</Title>
             <ThemeScaleCodeForm />
           </Box>
+          <Divider />
           <GeneratedCodePreview />
         </Stack>
       </Container>
