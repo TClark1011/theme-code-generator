@@ -20,6 +20,7 @@ const visualizationValuesSelector = createSelector(
 const SpacingVisualization: React.FC<BoxProps<'div'>> = (props) => {
   const { numericValues, labels } = useStoreSelector(visualizationValuesSelector);
   const barColor = useThemeColor('primary');
+  const gridColor = useThemeColor('gray', 8);
 
   return (
     <Box {...props}>
@@ -28,6 +29,18 @@ const SpacingVisualization: React.FC<BoxProps<'div'>> = (props) => {
           plugins: {
             legend: {
               display: false,
+            },
+          },
+          scales: {
+            xAxes: {
+              grid: {
+                color: gridColor,
+              },
+            },
+            yAxes: {
+              grid: {
+                color: gridColor,
+              },
             },
           },
         }}

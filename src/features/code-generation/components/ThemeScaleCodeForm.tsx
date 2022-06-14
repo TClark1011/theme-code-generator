@@ -116,7 +116,16 @@ const ThemeScaleCodeForm: React.FC = () => {
           />
           <Switch
             label="Replace Decimal Points In Keys"
-            wrapperProps={{ style: { flexDirection: 'row-reverse' } }}
+            styles={{
+              root: {
+                flexDirection: 'row-reverse',
+                gap: 16,
+                justifyContent: 'flex-end',
+              },
+              label: {
+                paddingLeft: 0,
+              },
+            }}
             checked={keyDecimalPointSubstitutionIsEnabled}
             onChange={toggleKeyDecimalPointSubstitutionIsEnabled}
           />

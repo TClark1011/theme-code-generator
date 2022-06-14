@@ -1,24 +1,27 @@
 import type { NextPage } from 'next';
-import { Box, Button } from '@mantine/core';
+import { Box, Container, Divider, Stack, Title } from '@mantine/core';
 import { SpacingScaleSelection, SpacingVisualization } from '$spacing';
-import { CodeGenerationModal, setCodeGenerationModalIsOpen } from '$code-generation';
-import { useStoreDispatch } from '$/store/storeHooks';
+import { GeneratedCodePreview, ThemeScaleCodeForm } from '$code-generation';
 
 const Home: NextPage = () => {
-  const dispatch = useStoreDispatch();
   return (
-    <Box
-      component="main"
-      sx={{
-        paddingLeft: '2rem',
-        paddingRight: '2rem',
-      }}
-    >
-      <SpacingVisualization />
-      <SpacingScaleSelection />
-      <Button onClick={() => dispatch(setCodeGenerationModalIsOpen(true))}>Generate Code</Button>
-      <CodeGenerationModal />
-    </Box>
+    <main>
+      <Container pb={64}>
+        <Stack spacing={64}>
+          <Title order={1}>Theme Code Generator</Title>
+          <Box>
+            <SpacingVisualization />
+            <SpacingScaleSelection />
+          </Box>
+          <Divider />
+          <Box>
+            <Title order={2}>Generate Code</Title>
+            <ThemeScaleCodeForm />
+          </Box>
+          <GeneratedCodePreview />
+        </Stack>
+      </Container>
+    </main>
   );
 };
 
