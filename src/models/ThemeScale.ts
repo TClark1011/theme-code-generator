@@ -5,6 +5,7 @@ type ThemeScale = WithId & {
   name: string;
   //TODO: rename this field to 'items'
   values: Array<KeyValuePair<string>>;
+  group?: string;
 };
 
 export type ThemeScaleUnit = WithId & {

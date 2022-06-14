@@ -2,17 +2,19 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { findItemWithId } from '$entity-helpers';
 import { spacingPxUnit } from '$spacing';
 import themeScaleUnitsMap from '$/constants/themeScaleUnitsMap';
+import { colorUnits } from '$color';
 
-export type ThemeScaleType = 'spacing';
+export type ThemeScaleType = 'spacing' | 'color';
 export type GeneralState = {
   selectedScaleType: ThemeScaleType;
   selectedUnitIds: Record<ThemeScaleType, string>;
 };
 
 const initialState: GeneralState = {
-  selectedScaleType: 'spacing',
+  selectedScaleType: 'color',
   selectedUnitIds: {
     spacing: spacingPxUnit.id,
+    color: colorUnits[0].id,
   },
 };
 
@@ -20,13 +22,11 @@ const generalSlice = createSlice({
   name: 'general',
   initialState,
   reducers: {
-    selectScaleType: (state: GeneralState, { payload }: PayloadAction<ThemeScaleType>) => {
+    setSelectedScaleType: (state: GeneralState, { payload }: PayloadAction<ThemeScaleType>) => {
       state.selectedScaleType = payload;
     },
     selectNewScaleUnitFromId: (state: GeneralState, { payload }: PayloadAction<string>) => {
       const newScaleUnit = findItemWithId(themeScaleUnitsMap[state.selectedScaleType], payload);
-
-      console.log('(generalReducer) newScaleUnit: ', newScaleUnit);
 
       if (!newScaleUnit) throw new Error(`Theme scale unit with id '${payload}' does not exist`);
 
@@ -35,7 +35,7 @@ const generalSlice = createSlice({
   },
 });
 
-export const { selectScaleType, selectNewScaleUnitFromId } = generalSlice.actions;
+export const { setSelectedScaleType, selectNewScaleUnitFromId } = generalSlice.actions;
 
 const generalReducer = generalSlice.reducer;
 

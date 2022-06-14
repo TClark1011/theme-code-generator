@@ -3,7 +3,6 @@ import {
   ThemeScaleCodeSystemRules,
 } from '$code-generation/models/themeCodeTypes';
 import { Array, NameDataPair } from '$/models/utilityTypes';
-import { ThemeScaleType } from '$/store/generalReducer';
 import { D } from '@mobily/ts-belt';
 
 export type CodePresetItem = NameDataPair<ThemeScaleCodeSystemRules>;
@@ -42,49 +41,47 @@ const stylusVarPxSystem = updateCodeSystemLineRules(cssVarPxSystem, {
   keyValueSeparator: ' = ',
 });
 
-const codePresets: Record<ThemeScaleType, Array<CodePresetItem>> = {
-  spacing: [
-    {
-      name: 'CSS Variables (px)',
-      data: cssVarPxSystem,
-    },
-    {
-      name: 'CSS Variables (rem)',
-      data: updateCodeSystemLineRules(cssVarPxSystem, {
-        postfix: 'rem;',
-      }),
-    },
-    {
-      name: 'SCSS Variables (px)',
-      data: scssVarPxSystem,
-    },
-    {
-      name: 'SCSS Variables (rem)',
-      data: updateCodeSystemLineRules(scssVarPxSystem, {
-        postfix: 'rem;',
-      }),
-    },
-    {
-      name: 'LESS Variables (px)',
-      data: lessVarPxSystem,
-    },
-    {
-      name: 'LESS Variables (rem)',
-      data: updateCodeSystemLineRules(lessVarPxSystem, {
-        postfix: 'rem;',
-      }),
-    },
-    {
-      name: 'Stylus Variables (px)',
-      data: stylusVarPxSystem,
-    },
-    {
-      name: 'Stylus Variables (rem)',
-      data: updateCodeSystemLineRules(stylusVarPxSystem, {
-        postfix: 'rem;',
-      }),
-    },
-  ],
-};
+const codePresets: Array<CodePresetItem> = [
+  {
+    name: 'CSS Variables (px)',
+    data: cssVarPxSystem,
+  },
+  {
+    name: 'CSS Variables (rem)',
+    data: updateCodeSystemLineRules(cssVarPxSystem, {
+      postfix: 'rem;',
+    }),
+  },
+  {
+    name: 'SCSS Variables (px)',
+    data: scssVarPxSystem,
+  },
+  {
+    name: 'SCSS Variables (rem)',
+    data: updateCodeSystemLineRules(scssVarPxSystem, {
+      postfix: 'rem;',
+    }),
+  },
+  {
+    name: 'LESS Variables (px)',
+    data: lessVarPxSystem,
+  },
+  {
+    name: 'LESS Variables (rem)',
+    data: updateCodeSystemLineRules(lessVarPxSystem, {
+      postfix: 'rem;',
+    }),
+  },
+  {
+    name: 'Stylus Variables (px)',
+    data: stylusVarPxSystem,
+  },
+  {
+    name: 'Stylus Variables (rem)',
+    data: updateCodeSystemLineRules(stylusVarPxSystem, {
+      postfix: 'rem;',
+    }),
+  },
+];
 
 export default codePresets;
