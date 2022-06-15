@@ -10,6 +10,8 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'next',
     'plugin:prettier/recommended',
+    'plugin:import/recommended',
+    'plugin:import/typescript',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -19,7 +21,13 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  plugins: ['react', '@typescript-eslint', 'prettier'],
+  plugins: ['react', '@typescript-eslint', 'prettier', 'import'],
+  settings: {
+    react: { version: 'detect' },
+    'import/resolver': {
+      typescript: {},
+    },
+  },
   rules: {
     'prettier/prettier': 'error',
     'linebreak-style': ['error', 'unix'],

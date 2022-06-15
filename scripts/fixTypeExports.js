@@ -3,7 +3,7 @@ const replace = require('replace-in-file');
 
 replace({
   files: 'src/**/models/index.ts',
-  from: 'export { default',
+  from: new RegExp('export { default', 'g'),
   to: 'export type { default',
   allowEmptyPaths: true,
 });
