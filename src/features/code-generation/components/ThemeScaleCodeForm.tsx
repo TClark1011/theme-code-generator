@@ -23,7 +23,7 @@ import {
   disableDecimalPointReplacementInKeys,
   enableDecimalPointReplacementInKeys,
   updateCodeRules,
-} from '$code-generation/logic/codeGenerationReducer';
+} from '$code-generation/store/codeGenerationReducer';
 import { selectActivePresetItem } from '$code-generation/store/codeGenerationSelectors';
 
 const composeScaleUnitSelectItem = ({ id, name }: ThemeScaleUnit): SelectItem => ({

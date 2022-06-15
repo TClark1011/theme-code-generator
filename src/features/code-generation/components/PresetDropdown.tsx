@@ -1,4 +1,4 @@
-import { setSelectedPresetName } from '$code-generation/logic/codeGenerationReducer';
+import { setSelectedPresetName } from '$code-generation/store/codeGenerationReducer';
 import { useStoreDispatch, useStoreSelector } from '$/store/storeHooks';
 import { Select, SelectItem, SelectProps } from '@mantine/core';
 import { A, flow, O, S } from '@mobily/ts-belt';
