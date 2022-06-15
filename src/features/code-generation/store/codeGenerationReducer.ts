@@ -42,6 +42,9 @@ const codeGenerationSlice = createSlice({
     setSelectedPresetName: (state: CodeGenerationState, { payload }: PayloadAction<string>) => {
       state.selectedPresetName = payload;
     },
+    resetPresetSelection: (state: CodeGenerationState) => {
+      state.selectedPresetName = undefined;
+    },
   },
 });
 
@@ -51,6 +54,7 @@ export const {
   disableDecimalPointReplacementInKeys,
   enableDecimalPointReplacementInKeys,
   setSelectedPresetName,
+  resetPresetSelection,
 } = codeGenerationSlice.actions;
 
 const codeGenerationReducer = codeGenerationSlice.reducer;
