@@ -3,7 +3,7 @@ import { useClipboard } from '@mantine/hooks';
 import { Clipboard, ClipboardCheck } from 'tabler-icons-react';
 import { useState } from 'react';
 import { useStoreSelector } from '$/store/storeHooks';
-import { selectGeneratedCode } from '$/store/selectors';
+import { selectGeneratedCode } from '$code-generation/store/codeGenerationSelectors';
 
 const GeneratedCodePreview: React.FC = () => {
   const generatedCode = useStoreSelector(selectGeneratedCode);

@@ -2,7 +2,6 @@ import { match } from 'ts-pattern';
 import { StoreSelector, StoreState } from '$/store/store';
 import { ThemeScaleUnit } from '$/models/ThemeScale';
 import { createSelector } from '@reduxjs/toolkit';
-import { CodePresetItem, codePresets, printThemeScaleCode } from '$code-generation';
 import { findItemWithId } from '$entity-helpers';
 import themeScaleUnitsMap from '$/constants/themeScaleUnitsMap';
 import { Array, KeyValuePair } from '$/models/utilityTypes';
@@ -37,24 +36,3 @@ export const selectActiveScaleValues: StoreSelector<Array<KeyValuePair<string>>>
     .with('spacing', () => state.spacing.selectedScale.values)
     .with('color', () => selectCurrentColorPalette(state).values)
     .exhaustive();
-
-export const selectGeneratedCode: StoreSelector<string> = (state: StoreState) => {
-  const selectedUnit = selectActiveThemeScaleUnit(state);
-  const codeSystem = state.codeGeneration.codeSystemRules;
-  const values = selectActiveScaleValues(state);
-
-  const generatedCode = printThemeScaleCode(
-    { ...codeSystem, values, label: state.general.selectedScaleType },
-    selectedUnit
-  );
-
-  return generatedCode;
-};
-
-export const selectActivePresetItem: StoreSelector<CodePresetItem | undefined> = (state) => {
-  const selectedPresetName = state.codeGeneration.selectedPresetName;
-
-  const activePreset = codePresets.find((preset) => preset.name === selectedPresetName);
-
-  return activePreset;
-};

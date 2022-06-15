@@ -6,3 +6,4 @@ export * from './components/index';
 export * from './constants/index';
 export * from './logic/index';
 export * from './models/index';
+export * from './store/index';

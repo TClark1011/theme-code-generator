@@ -1,11 +1,11 @@
 import { setSelectedPresetName } from '$code-generation/logic/codeGenerationReducer';
-import { selectActivePresetItem } from '$/store/selectors';
 import { useStoreDispatch, useStoreSelector } from '$/store/storeHooks';
 import { Select, SelectItem, SelectProps } from '@mantine/core';
 import { A, flow, O, S } from '@mobily/ts-belt';
 import { Except } from 'type-fest';
 import { codePresets } from '$code-generation/constants';
 import { Array } from '$/models/utilityTypes';
+import { selectActivePresetItem } from '$code-generation/store/codeGenerationSelectors';
 
 const getFirstWord = flow(S.split(' '), A.head, O.getWithDefault(''));
 

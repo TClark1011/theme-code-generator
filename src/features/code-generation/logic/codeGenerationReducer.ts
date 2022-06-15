@@ -1,33 +1,30 @@
-import { codeFormValuesToSystemRules } from '$code-generation/logic';
-import { defaultCodeSystem } from '$code-generation/constants';
-import {
-  ThemeScaleCodeSystemRules,
-  ThemeScaleFormProps,
-} from '$code-generation/models/themeCodeTypes';
+import defaultCodeRules from '$code-generation/constants/defaultCodeRules';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import ThemeScaleCodeRules from '$code-generation/models/ThemeScaleCodeRules';
 
 export type CodeGenerationState = {
-  codeSystemRules: ThemeScaleCodeSystemRules;
+  codeSystemRules: ThemeScaleCodeRules;
   codeGenerationModalIsOpen: boolean;
   selectedPresetName: string | undefined;
+  savedDecimalReplacementRule: string | undefined;
 };
 
 const initialState: CodeGenerationState = {
-  codeSystemRules: defaultCodeSystem,
+  codeSystemRules: defaultCodeRules,
   codeGenerationModalIsOpen: false,
   selectedPresetName: undefined,
+  savedDecimalReplacementRule: undefined,
 };
 
 const codeGenerationSlice = createSlice({
   name: 'codeGeneration',
   initialState,
   reducers: {
-    updateCodeSystemFromForm: (
+    updateCodeRules: (
       state: CodeGenerationState,
-      { payload }: PayloadAction<ThemeScaleFormProps>
+      { payload }: PayloadAction<ThemeScaleCodeRules>
     ) => {
-      const newSystemRules = codeFormValuesToSystemRules(payload);
-      state.codeSystemRules = newSystemRules;
+      state.codeSystemRules = payload;
     },
     setCodeGenerationModalIsOpen: (
       state: CodeGenerationState,
@@ -35,14 +32,12 @@ const codeGenerationSlice = createSlice({
     ) => {
       state.codeGenerationModalIsOpen = payload;
     },
-    disableDecimalPointSubstitutionInKeys: (state: CodeGenerationState) => {
-      state.codeSystemRules.lineRules.keyDecimalPointSubstitution = undefined;
+    disableDecimalPointReplacementInKeys: (state: CodeGenerationState) => {
+      state.savedDecimalReplacementRule = state.codeSystemRules.keyDecimalPointReplacement;
+      state.codeSystemRules.keyDecimalPointReplacement = undefined;
     },
-    enableDecimalPointSubstitutionInKeys: (
-      state: CodeGenerationState,
-      { payload }: PayloadAction<string>
-    ) => {
-      state.codeSystemRules.lineRules.keyDecimalPointSubstitution = payload;
+    enableDecimalPointReplacementInKeys: (state: CodeGenerationState) => {
+      state.codeSystemRules.keyDecimalPointReplacement = state.savedDecimalReplacementRule;
     },
     setSelectedPresetName: (state: CodeGenerationState, { payload }: PayloadAction<string>) => {
       state.selectedPresetName = payload;
@@ -52,9 +47,9 @@ const codeGenerationSlice = createSlice({
 
 export const {
   setCodeGenerationModalIsOpen,
-  updateCodeSystemFromForm,
-  disableDecimalPointSubstitutionInKeys,
-  enableDecimalPointSubstitutionInKeys,
+  updateCodeRules,
+  disableDecimalPointReplacementInKeys,
+  enableDecimalPointReplacementInKeys,
   setSelectedPresetName,
 } = codeGenerationSlice.actions;
 

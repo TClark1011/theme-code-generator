@@ -4,7 +4,7 @@ import { Chart } from 'chart.js';
 import { useReducedMotion } from '@mantine/hooks';
 import { Provider as StoreProvider } from 'react-redux';
 import store from '$/store/store';
-import theme from '$/constants/theme';
+import theme, { defaultStyles } from '$/constants/theme';
 import useMountEffect from '$/hooks/useMountEffect';
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -17,7 +17,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   });
 
   return (
-    <MantineProvider theme={theme} withGlobalStyles withNormalizeCSS>
+    <MantineProvider theme={theme} styles={defaultStyles} withGlobalStyles withNormalizeCSS>
       <StoreProvider store={store}>
         <Component {...pageProps} />
       </StoreProvider>

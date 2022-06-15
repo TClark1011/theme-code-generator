@@ -1,46 +1,43 @@
-import {
-  ThemeScaleCodeLineRules,
-  ThemeScaleCodeSystemRules,
-} from '$code-generation/models/themeCodeTypes';
+import ThemeScaleCodeRules from '$code-generation/models/ThemeScaleCodeRules';
 import { Array, NameDataPair } from '$/models/utilityTypes';
-import { D } from '@mobily/ts-belt';
+import { deepUpdate } from '$deep-merge';
+import defaultCodeRules from '$code-generation/constants/defaultCodeRules';
 
-export type CodePresetItem = NameDataPair<ThemeScaleCodeSystemRules>;
+export type CodePresetItem = NameDataPair<ThemeScaleCodeRules>;
 
-const updateCodeSystemLineRules = (
-  system: ThemeScaleCodeSystemRules,
-  newLineRules: Partial<ThemeScaleCodeLineRules>
-): ThemeScaleCodeSystemRules => D.updateUnsafe(system, 'lineRules', D.merge(newLineRules));
+const withRemLinePostfix = (baseRules: ThemeScaleCodeRules) =>
+  deepUpdate(baseRules, {
+    linePostfix: 'rem;',
+  });
 
-const cssVarPxSystem: ThemeScaleCodeSystemRules = {
-  indentValues: true,
-  lineBreaks: true,
+const baseStyleSheetPxSystem = deepUpdate(defaultCodeRules, {
+  keyDecimalPointReplacement: '_',
+  linePostfix: 'px;',
+  keyValueSeparator: ': ',
+  labelKeySeparator: '-',
+});
+
+const cssVarPxSystem = deepUpdate(baseStyleSheetPxSystem, {
   prefix: 'html {',
   postfix: '}',
-  lineRules: {
-    keyDecimalPointSubstitution: '_',
-    keyValueSeparator: ': ',
-    labelKeySeparator: '-',
-    postfix: 'px;',
-    prefix: '--',
-    showKey: true,
-    showLabel: true,
-  },
-};
-
-const scssVarPxSystem = updateCodeSystemLineRules(cssVarPxSystem, {
-  prefix: '$',
+  linePrefix: '--',
 });
 
-const lessVarPxSystem = updateCodeSystemLineRules(cssVarPxSystem, {
-  prefix: '@',
+const scssVarPxSystem = deepUpdate(baseStyleSheetPxSystem, {
+  linePrefix: '$',
 });
 
-const stylusVarPxSystem = updateCodeSystemLineRules(cssVarPxSystem, {
-  prefix: '',
+const lessVarPxSystem = deepUpdate(baseStyleSheetPxSystem, {
+  linePrefix: '@',
+});
+
+const stylusVarPxSystem = deepUpdate(baseStyleSheetPxSystem, {
+  linePrefix: '',
   keyValueSeparator: ' = ',
 });
 
+// TODO: Give Code preset items a 'group' property to group them in the drop down
+// TODO: Different presets for different scale types
 const codePresets: Array<CodePresetItem> = [
   {
     name: 'CSS Variables (px)',
@@ -48,9 +45,7 @@ const codePresets: Array<CodePresetItem> = [
   },
   {
     name: 'CSS Variables (rem)',
-    data: updateCodeSystemLineRules(cssVarPxSystem, {
-      postfix: 'rem;',
-    }),
+    data: withRemLinePostfix(cssVarPxSystem),
   },
   {
     name: 'SCSS Variables (px)',
@@ -58,9 +53,7 @@ const codePresets: Array<CodePresetItem> = [
   },
   {
     name: 'SCSS Variables (rem)',
-    data: updateCodeSystemLineRules(scssVarPxSystem, {
-      postfix: 'rem;',
-    }),
+    data: withRemLinePostfix(scssVarPxSystem),
   },
   {
     name: 'LESS Variables (px)',
@@ -68,9 +61,7 @@ const codePresets: Array<CodePresetItem> = [
   },
   {
     name: 'LESS Variables (rem)',
-    data: updateCodeSystemLineRules(lessVarPxSystem, {
-      postfix: 'rem;',
-    }),
+    data: withRemLinePostfix(lessVarPxSystem),
   },
   {
     name: 'Stylus Variables (px)',
@@ -78,9 +69,7 @@ const codePresets: Array<CodePresetItem> = [
   },
   {
     name: 'Stylus Variables (rem)',
-    data: updateCodeSystemLineRules(stylusVarPxSystem, {
-      postfix: 'rem;',
-    }),
+    data: withRemLinePostfix(stylusVarPxSystem),
   },
 ];
 
