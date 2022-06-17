@@ -9,8 +9,14 @@ import {
 } from '$/store/selectors';
 import { StoreSelector, StoreState } from '$/store/store';
 import { Array } from '$/models/utilityTypes';
-import codePresets, { CodePresetItem } from '$code-generation/constants/codePresets';
+import codePresets from '$code-generation/constants/codePresets';
 import { createSelector } from '@reduxjs/toolkit';
+import CodePresetItem from '$code-generation/models/CodePresetItem';
+
+export const selectApplicableCodePresets = createSelector(
+  (s: StoreState) => s.general.selectedScaleType,
+  (scaleType) => codePresets[scaleType]
+);
 
 export const selectGeneratedCode: StoreSelector<string> = (state) => {
   const scaleType = selectSelectedScaleType(state);
@@ -30,14 +36,14 @@ export const selectGeneratedCode: StoreSelector<string> = (state) => {
   return generatedCode;
 };
 
-// export const selectActivePresetItem: StoreSelector<CodePresetItem | undefined> = (state) => {
-//   const selectedPresetName = state.codeGeneration.selectedPresetName;
-
-//   const activePreset = codePresets.find((preset) => preset.name === selectedPresetName);
-
-//   return activePreset;
-// };
 export const selectActivePresetItem: StoreSelector<CodePresetItem | undefined> = createSelector(
-  (s: StoreState) => s.codeGeneration.selectedPresetName,
-  (selectedPresetName) => codePresets.find((preset) => preset.name === selectedPresetName)
+  (s: StoreState) => s,
+  (state) => {
+    const applicablePresets = selectApplicableCodePresets(state);
+    const selectedPresetName = state.codeGeneration.selectedPresetName;
+
+    const activePreset = applicablePresets.find((preset) => preset.name === selectedPresetName);
+
+    return activePreset;
+  }
 );

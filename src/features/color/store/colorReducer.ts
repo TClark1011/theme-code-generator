@@ -1,4 +1,4 @@
-import TailwindShade from '$color/models/TailwindColorPalette';
+import TailwindColorPalette from '$color/models/TailwindColorPalette';
 import colorPalettes from '$color/constants/colorPalettes';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import AsyncStoreData, {
@@ -11,7 +11,7 @@ import fetchTailwindColorPalette from '$color/api/fetchTailwindColorPalette';
 export type ColorState = {
   colorPaletteId: string;
   customColor: string;
-  customColorPaletteQuery: AsyncStoreData<TailwindShade>;
+  customColorPaletteQuery: AsyncStoreData<TailwindColorPalette>;
   usingCustomColor: boolean;
 };
 
