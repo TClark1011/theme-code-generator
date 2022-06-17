@@ -21,13 +21,14 @@ const cssVarPxSystem = deepUpdate(baseStyleSheetPxSystem, {
 
 const scssVarPxSystem = deepUpdate(baseStyleSheetPxSystem, {
   linePrefix: '$',
+  useIndentation: false,
 });
 
-const lessVarPxSystem = deepUpdate(baseStyleSheetPxSystem, {
+const lessVarPxSystem = deepUpdate(scssVarPxSystem, {
   linePrefix: '@',
 });
 
-const stylusVarPxSystem = deepUpdate(baseStyleSheetPxSystem, {
+const stylusVarPxSystem = deepUpdate(scssVarPxSystem, {
   linePrefix: '',
   keyValueSeparator: ' = ',
 });

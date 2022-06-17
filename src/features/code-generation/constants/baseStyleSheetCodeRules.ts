@@ -5,6 +5,7 @@ const baseStyleSheetCodeRules = deepUpdate(defaultCodeRules, {
   keyDecimalPointReplacement: '_',
   keyValueSeparator: ': ',
   labelKeySeparator: '-',
+  linePostfix: ';',
 });
 
 export default baseStyleSheetCodeRules;
