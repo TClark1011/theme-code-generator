@@ -10,7 +10,7 @@ import {
   TextInput,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { D, F, flow } from '@mobily/ts-belt';
+import { D, flow } from '@mobily/ts-belt';
 import { selectActiveThemeScaleUnit, selectApplicableThemeScaleUnits } from '$/store/selectors';
 import { ThemeScaleUnit } from '$/models/ThemeScale';
 import { selectNewScaleUnitFromId } from '$/store/generalReducer';
@@ -139,7 +139,7 @@ const ThemeScaleCodeForm: React.FC = () => {
         label="Units"
         data={selectableScales.map(composeScaleUnitSelectItem)}
         value={selectedScale.id}
-        onChange={flow(F.tap(console.log), selectNewScaleUnitFromId, dispatch)}
+        onChange={flow(selectNewScaleUnitFromId, dispatch)}
       />
     </Stack>
   );

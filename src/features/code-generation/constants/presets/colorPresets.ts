@@ -1,8 +1,9 @@
-import { baseStyleSheetCodeRules, CodePresetItem } from '$code-generation';
 import { deepUpdate } from '$deep-merge';
 import { Array } from '$/models/utilityTypes';
+import baseStyleSheetCodeRules from '$code-generation/constants/baseStyleSheetCodeRules';
+import CodePresetItem from '$code-generation/models/CodePresetItem';
 
-const colorCodePresets: Array<CodePresetItem> = [
+const colorPresets: Array<CodePresetItem> = [
   {
     name: 'CSS Variables',
     data: deepUpdate(baseStyleSheetCodeRules, {
@@ -24,4 +25,4 @@ const colorCodePresets: Array<CodePresetItem> = [
     }),
   },
 ];
-export default colorCodePresets;
+export default colorPresets;

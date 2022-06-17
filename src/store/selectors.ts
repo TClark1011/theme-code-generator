@@ -3,7 +3,7 @@ import { StoreSelector, StoreState } from '$/store/store';
 import { ThemeScaleUnit } from '$/models/ThemeScale';
 import { createSelector } from '@reduxjs/toolkit';
 import { findItemWithId } from '$entity-helpers';
-import themeScaleUnitsMap from '$/constants/themeScaleUnitsMap';
+import { scaleUnits } from '$code-generation';
 import { Array, KeyValuePair } from '$/models/utilityTypes';
 import { ThemeScaleType } from '$/store/generalReducer';
 import { selectCurrentColorPalette } from '$color';
@@ -13,7 +13,7 @@ export const selectSelectedScaleType: StoreSelector<ThemeScaleType> = (s) =>
 
 export const selectApplicableThemeScaleUnits = createSelector(
   (s: StoreState) => s.general.selectedScaleType,
-  (scaleType): Array<ThemeScaleUnit> => themeScaleUnitsMap[scaleType]
+  (scaleType): Array<ThemeScaleUnit> => scaleUnits[scaleType]
 );
 
 export const selectActiveThemeScaleUnit = createSelector(
@@ -21,7 +21,7 @@ export const selectActiveThemeScaleUnit = createSelector(
   (general): ThemeScaleUnit => {
     const selectedScaleType = general.selectedScaleType;
     const activeUnitId = general.selectedUnitIds[selectedScaleType];
-    const validScales = themeScaleUnitsMap[selectedScaleType];
+    const validScales = scaleUnits[selectedScaleType];
 
     const activeUnit = findItemWithId(validScales, activeUnitId);
 

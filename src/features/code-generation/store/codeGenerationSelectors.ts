@@ -39,10 +39,7 @@ export const selectGeneratedCode: StoreSelector<string> = (state) => {
 export const selectActivePresetItem: StoreSelector<CodePresetItem | undefined> = createSelector(
   (s: StoreState) => s,
   (state) => {
-    console.log('(codeGenerationSelectors) codePresets: ', codePresets);
-    console.log('(codeGenerationSelectors) state: ', state);
     const applicablePresets = selectApplicableCodePresets(state);
-    console.log('(codeGenerationSelectors) applicablePresets: ', applicablePresets);
     const selectedPresetName = state.codeGeneration.selectedPresetName;
 
     const activePreset = applicablePresets.find((preset) => preset.name === selectedPresetName);
