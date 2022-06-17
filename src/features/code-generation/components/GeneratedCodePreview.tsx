@@ -1,36 +1,25 @@
-import { ActionIcon, Box, Code, Paper, Popper } from '@mantine/core';
-import { useClipboard } from '@mantine/hooks';
-import { Clipboard, ClipboardCheck } from 'tabler-icons-react';
-import { useState } from 'react';
+import { Box, Code } from '@mantine/core';
 import { useStoreSelector } from '$/store/storeHooks';
 import { selectGeneratedCode } from '$code-generation/store/codeGenerationSelectors';
+import CopyActionIcon from '$/components/CopyActionIcon';
 
 const GeneratedCodePreview: React.FC = () => {
   const generatedCode = useStoreSelector(selectGeneratedCode);
-  const { copy, copied } = useClipboard();
-  const [popperEl, setPopperEl] = useState<HTMLElement | null>(null);
 
   return (
-    <>
-      <Box sx={{ position: 'relative' }}>
-        <Code block sx={{ width: '100%' }}>
-          {generatedCode}
-        </Code>
-        <ActionIcon
-          sx={{ position: 'absolute', top: 8, right: 8 }}
-          onClick={() => copy(generatedCode)}
-          ref={setPopperEl as any}
-        >
-          {copied ? <ClipboardCheck /> : <Clipboard />}
-        </ActionIcon>
-      </Box>
-
-      <Popper referenceElement={popperEl as any} mounted={copied}>
-        <Paper px={12} py={8} shadow="xl">
-          Copied code!
-        </Paper>
-      </Popper>
-    </>
+    <Box sx={{ position: 'relative' }}>
+      <Code block sx={{ width: '100%' }}>
+        {generatedCode}
+      </Code>
+      <CopyActionIcon
+        withPopper
+        text={generatedCode}
+        sx={{ position: 'absolute', top: 8, right: 8 }}
+        popperProps={{
+          position: 'left',
+        }}
+      />
+    </Box>
   );
 };
 

@@ -1,5 +1,6 @@
 import { Array } from '$/models/utilityTypes';
-import { Box, ColorSwatch } from '@mantine/core';
+import SmartColorSwatch from '$color/components/SmartColorSwatch';
+import { Box } from '@mantine/core';
 
 export type ColorRangeVisualizationProps = {
   colors: Array<string>;
@@ -16,7 +17,7 @@ const ColorRangeVisualization = ({ colors }: ColorRangeVisualizationProps) => {
       }}
     >
       {colors.map((color) => (
-        <ColorSwatch radius="md" size={64} key={color} color={color} />
+        <SmartColorSwatch key={color} color={color} />
       ))}
     </Box>
   );
