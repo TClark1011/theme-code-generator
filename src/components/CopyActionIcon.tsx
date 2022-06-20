@@ -20,7 +20,7 @@ type ActionIconUniqueProps = {
 };
 export type CopyActionIconProps = Merge<ActionIconProps<'button'>, ActionIconUniqueProps>;
 
-const ANIMATION_DURATION = 200;
+const ANIMATION_DURATION = 100;
 
 const useCopyActionIconLogic = ({
   text,

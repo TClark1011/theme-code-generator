@@ -1,7 +1,8 @@
 import { setSelectedScaleType, ThemeScaleType } from '$/store/generalReducer';
 import { selectSelectedScaleType } from '$/store/selectors';
 import { useStoreDispatch, useStoreSelector } from '$/store/storeHooks';
-import { Select } from '@mantine/core';
+import { titleCase } from '$string-case-helpers';
+import { Radio, RadioGroup } from '@mantine/core';
 import { flow } from '@mobily/ts-belt';
 import { FC } from 'react';
 
@@ -12,12 +13,16 @@ const ScaleSwitcher: FC = () => {
   const selectedScaleType = useStoreSelector(selectSelectedScaleType);
 
   return (
-    <Select
-      data={scaleTypes}
-      onChange={flow(setSelectedScaleType, dispatch)}
-      label="Scale Type"
+    <RadioGroup
       value={selectedScaleType}
-    />
+      onChange={flow(setSelectedScaleType, dispatch)}
+      orientation="vertical"
+      spacing="lg"
+    >
+      {scaleTypes.map((type) => (
+        <Radio label={titleCase(type)} key={type} value={type} />
+      ))}
+    </RadioGroup>
   );
 };
 
