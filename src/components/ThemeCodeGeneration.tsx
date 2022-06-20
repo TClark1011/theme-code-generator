@@ -3,7 +3,7 @@ import ActiveVisualization from '$/components/ActiveVisualization';
 import ScaleSwitcher from '$/components/ScaleSwitcher';
 import useNumberState from '$/hooks/useNumberState';
 import { GeneratedCodePreview, ThemeScaleCodeForm } from '$code-generation';
-import { Box, Button, Center, Divider, Stepper } from '@mantine/core';
+import { Box, Button, Center, Divider, Paper, Stepper } from '@mantine/core';
 import { FC } from 'react';
 
 const ThemeCodeGeneration: FC = () => {
@@ -46,7 +46,11 @@ const ThemeCodeGeneration: FC = () => {
           <ThemeScaleCodeForm />
         </Stepper.Step>
         <Stepper.Step label="Copy Code">
-          <GeneratedCodePreview />
+          <Center>
+            <Paper shadow="md">
+              <GeneratedCodePreview />
+            </Paper>
+          </Center>
         </Stepper.Step>
       </Stepper>
       <Center>

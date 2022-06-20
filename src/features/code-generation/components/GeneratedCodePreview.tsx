@@ -8,7 +8,7 @@ const GeneratedCodePreview: React.FC = () => {
 
   return (
     <Box sx={{ position: 'relative' }}>
-      <Code block sx={{ width: '100%' }}>
+      <Code block sx={{ width: '100%' }} pr={64}>
         {generatedCode}
       </Code>
       <CopyActionIcon
