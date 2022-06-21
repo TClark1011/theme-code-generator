@@ -3,7 +3,7 @@ import ActiveVisualization from '$/components/ActiveVisualization';
 import ScaleSwitcher from '$/components/ScaleSwitcher';
 import useNumberState from '$/hooks/useNumberState';
 import { GeneratedCodePreview, ThemeScaleCodeForm } from '$code-generation';
-import { Box, Button, Center, Divider, Paper, Stepper } from '@mantine/core';
+import { Box, Button, Center, Divider, Group, Paper, Stepper } from '@mantine/core';
 import { FC } from 'react';
 
 const ThemeCodeGeneration: FC = () => {
@@ -53,8 +53,9 @@ const ThemeCodeGeneration: FC = () => {
           </Center>
         </Stepper.Step>
       </Stepper>
+      <Divider my={24} />
       <Center>
-        <Box sx={{ display: 'flex', gap: 16 }} mt={16}>
+        <Group>
           {!isAtFirstStep && (
             <Button color="gray" onClick={gotoPreviousStep}>
               Back
@@ -65,7 +66,7 @@ const ThemeCodeGeneration: FC = () => {
               Next
             </Button>
           )}
-        </Box>
+        </Group>
       </Center>
     </Box>
   );

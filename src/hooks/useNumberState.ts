@@ -1,5 +1,5 @@
 import { N } from '@mobily/ts-belt';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 
 type UseNumberStateOptions = {
   max?: number;
@@ -12,12 +12,10 @@ const useNumberState = (
 ) => {
   const [value, setValue] = useState(initialValue);
 
-  const finalValue = useMemo(() => N.clamp(value, min, max), [value, min, max]);
+  const finalValue = N.clamp(value, min, max);
 
-  console.log('(useNumberState) finalValue: ', finalValue);
-
-  const increment = () => setValue(finalValue + 1);
-  const decrement = () => setValue(finalValue - 1);
+  const increment = () => setValue(N.succ);
+  const decrement = () => setValue(N.pred);
 
   const isAtMax = finalValue === max;
   const isAtMin = finalValue === min;

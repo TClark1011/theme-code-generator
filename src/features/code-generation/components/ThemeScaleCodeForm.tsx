@@ -4,6 +4,7 @@ import {
   Group,
   Select,
   SelectItem,
+  SelectProps,
   SimpleGrid,
   Stack,
   Switch,
@@ -11,7 +12,11 @@ import {
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { D, flow } from '@mobily/ts-belt';
-import { selectActiveThemeScaleUnit, selectApplicableThemeScaleUnits } from '$/store/selectors';
+import {
+  selectActiveThemeScaleUnit,
+  selectApplicableThemeScaleUnits,
+  selectSelectedScaleType,
+} from '$/store/selectors';
 import { ThemeScaleUnit } from '$/models/ThemeScale';
 import { selectNewScaleUnitFromId } from '$/store/generalReducer';
 import { useDidUpdate, useDisclosure } from '@mantine/hooks';
@@ -25,6 +30,10 @@ import {
   updateCodeRules,
 } from '$code-generation/store/codeGenerationReducer';
 import { selectActivePresetItem } from '$code-generation/store/codeGenerationSelectors';
+import { createStructuredSelector } from 'reselect';
+import { StoreState } from '$/store/store';
+import { useMemo } from 'react';
+import { defaultCodeRules } from '$code-generation/constants';
 
 const composeScaleUnitSelectItem = ({ id, name }: ThemeScaleUnit): SelectItem => ({
   value: id,
@@ -33,27 +42,47 @@ const composeScaleUnitSelectItem = ({ id, name }: ThemeScaleUnit): SelectItem =>
 
 const selectActivePresetFormValues = createSelector(selectActivePresetItem, (item) => item?.data);
 
-const ThemeScaleCodeForm: React.FC = () => {
+const selectCodeFormData = createStructuredSelector({
+  currentCodeRules: (s: StoreState) => s.codeGeneration.codeSystemRules,
+  selectableScales: selectApplicableThemeScaleUnits,
+  selectedScale: selectActiveThemeScaleUnit,
+  selectedPresetFormValues: selectActivePresetFormValues,
+  selectedScaleType: selectSelectedScaleType,
+});
+
+const useThemeScaleCodeForm = () => {
   const dispatch = useStoreDispatch();
-  const currentCodeRules = useStoreSelector((s) => s.codeGeneration.codeSystemRules);
-  const selectableScales = useStoreSelector(selectApplicableThemeScaleUnits);
-  const selectedScale = useStoreSelector(selectActiveThemeScaleUnit);
-  const selectedPresetFormValues = useStoreSelector(selectActivePresetFormValues);
+  const {
+    currentCodeRules,
+    selectableScales,
+    selectedScale,
+    selectedPresetFormValues,
+    selectedScaleType,
+  } = useStoreSelector(selectCodeFormData);
 
   const { getInputProps, values, errors, setValues } = useForm<ThemeScaleCodeRules>({
     initialValues: currentCodeRules,
   });
+
+  const [
+    keyDecimalPointSubstitutionIsEnabled,
+    { toggle: toggleKeyDecimalPointSubstitutionIsEnabled },
+  ] = useDisclosure(values.keyDecimalPointReplacement !== undefined);
+
+  const unitSelectProps: Pick<SelectProps, 'data' | 'value' | 'onChange'> = useMemo(
+    () => ({
+      data: selectableScales.map(composeScaleUnitSelectItem),
+      onChange: flow(selectNewScaleUnitFromId, dispatch),
+      value: selectedScale?.id,
+    }),
+    [selectableScales, selectedScale, dispatch]
+  );
 
   useDidUpdate(() => {
     if (selectedPresetFormValues) {
       setValues(selectedPresetFormValues);
     }
   }, [selectedPresetFormValues]);
-
-  const [
-    keyDecimalPointSubstitutionIsEnabled,
-    { toggle: toggleKeyDecimalPointSubstitutionIsEnabled },
-  ] = useDisclosure(values.keyDecimalPointReplacement !== undefined);
 
   useDeferredEffect((deferredFormValues) => {
     if (D.isEmpty(errors)) {
@@ -74,14 +103,37 @@ const ThemeScaleCodeForm: React.FC = () => {
     }
   }, keyDecimalPointSubstitutionIsEnabled);
 
+  useDeferredEffect(() => {
+    setValues(defaultCodeRules);
+  }, selectedScaleType);
+
+  return {
+    unitSelectProps,
+    getInputProps,
+    values,
+    keyDecimalPointSubstitutionIsEnabled,
+    toggleKeyDecimalPointSubstitutionIsEnabled,
+  };
+};
+
+const ThemeScaleCodeForm: React.FC = () => {
+  const {
+    unitSelectProps,
+    getInputProps,
+    values,
+    keyDecimalPointSubstitutionIsEnabled,
+    toggleKeyDecimalPointSubstitutionIsEnabled,
+  } = useThemeScaleCodeForm();
+
   return (
     <Stack>
       <PresetDropdown />
+      <Select label="Units" {...unitSelectProps} />
       <Divider />
       <Group direction="column">
         <Group sx={{ width: '100%' }}>
-          <TextInput sx={{ flex: 1 }} label="prefix" {...getInputProps('prefix')} />
-          <TextInput sx={{ flex: 1 }} label="postfix" {...getInputProps('postfix')} />
+          <TextInput sx={{ flex: 1 }} label="Prefix" {...getInputProps('prefix')} />
+          <TextInput sx={{ flex: 1 }} label="Postfix" {...getInputProps('postfix')} />
         </Group>
         <SimpleGrid cols={2} sx={{ width: '100%' }}>
           <Switch
@@ -95,7 +147,7 @@ const ThemeScaleCodeForm: React.FC = () => {
             {...getInputProps('useIndentation')}
           />
           <Switch label="Show Labels" checked={values.showLabel} {...getInputProps('showLabel')} />
-          <Switch label="Show Keyes " checked={values.showKey} {...getInputProps('showKey')} />
+          <Switch label="Show Keys " checked={values.showKey} {...getInputProps('showKey')} />
           <Switch
             label="Replace Decimal Points In Keys"
             styles={{
@@ -134,13 +186,6 @@ const ThemeScaleCodeForm: React.FC = () => {
           <TextInput label="Line Postfix" {...getInputProps('linePostfix')} />
         </SimpleGrid>
       </Group>
-      <Divider />
-      <Select
-        label="Units"
-        data={selectableScales.map(composeScaleUnitSelectItem)}
-        value={selectedScale.id}
-        onChange={flow(selectNewScaleUnitFromId, dispatch)}
-      />
     </Stack>
   );
 };
