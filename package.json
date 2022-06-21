@@ -31,7 +31,6 @@
     "react-dom": "^18.0.0",
     "react-redux": "^8.0.2",
     "tabler-icons-react": "^1.48.1",
-    "telejson": "^6.0.8",
     "ts-pattern": "^4.0.2"
   },
   "devDependencies": {
