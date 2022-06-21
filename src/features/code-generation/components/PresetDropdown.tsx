@@ -1,7 +1,4 @@
-import {
-  resetPresetSelection,
-  setSelectedPresetName,
-} from '$code-generation/store/codeGenerationReducer';
+import { setSelectedPresetName } from '$code-generation/store/codeGenerationReducer';
 import { useStoreDispatch, useStoreSelector } from '$/store/storeHooks';
 import { Select, SelectItem, SelectProps } from '@mantine/core';
 import { A, flow, O, S } from '@mobily/ts-belt';
@@ -11,10 +8,8 @@ import {
   selectApplicableCodePresets,
 } from '$code-generation/store/codeGenerationSelectors';
 import { createSelector } from '@reduxjs/toolkit';
-import { selectSelectedScaleType } from '$/store/selectors';
-import { useDidUpdate } from '@mantine/hooks';
 
-const getFirstWord = flow(S.split(' '), A.head, O.getWithDefault(''));
+const getFirstWord = flow(S.split(' '), A.head, O.getWithDefault<string>(''));
 
 const selectCodePresetSelectionItems = createSelector(
   selectApplicableCodePresets,
@@ -34,11 +29,6 @@ const PresetDropdown: React.FC<PresetDropdownProps> = (props) => {
 
   const selectedCodePresetItem = useStoreSelector(selectActivePresetItem);
   const selectionItems = useStoreSelector(selectCodePresetSelectionItems);
-  const selectedScaleType = useStoreSelector(selectSelectedScaleType);
-
-  useDidUpdate(() => {
-    dispatch(resetPresetSelection());
-  }, [selectedScaleType]);
 
   return (
     <Select

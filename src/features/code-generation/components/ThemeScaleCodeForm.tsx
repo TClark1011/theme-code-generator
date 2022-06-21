@@ -20,7 +20,7 @@ import {
 import { ThemeScaleUnit } from '$/models/ThemeScale';
 import { selectNewScaleUnitFromId } from '$/store/generalReducer';
 import { useDidUpdate, useDisclosure } from '@mantine/hooks';
-import useDeferredEffect from '$/hooks/useDeferredEffect';
+import { useDeferredUpdateEffect } from '$/hooks/useDeferredEffect';
 import PresetDropdown from '$code-generation/components/PresetDropdown';
 import { createSelector } from '@reduxjs/toolkit';
 import ThemeScaleCodeRules from '$code-generation/models/ThemeScaleCodeRules';
@@ -52,13 +52,8 @@ const selectCodeFormData = createStructuredSelector({
 
 const useThemeScaleCodeForm = () => {
   const dispatch = useStoreDispatch();
-  const {
-    currentCodeRules,
-    selectableScales,
-    selectedScale,
-    selectedPresetFormValues,
-    selectedScaleType,
-  } = useStoreSelector(selectCodeFormData);
+  const { currentCodeRules, selectableScales, selectedScale, selectedPresetFormValues } =
+    useStoreSelector(selectCodeFormData);
 
   const { getInputProps, values, errors, setValues } = useForm<ThemeScaleCodeRules>({
     initialValues: currentCodeRules,
@@ -79,33 +74,30 @@ const useThemeScaleCodeForm = () => {
   );
 
   useDidUpdate(() => {
+    // # Apply preset when one is selected
     if (selectedPresetFormValues) {
       setValues(selectedPresetFormValues);
+    } else {
+      setValues(defaultCodeRules);
     }
   }, [selectedPresetFormValues]);
 
-  useDeferredEffect((deferredFormValues) => {
+  useDeferredUpdateEffect((deferredValues) => {
+    //# Save form values to global state on change
     if (D.isEmpty(errors)) {
-      dispatch(updateCodeRules(deferredFormValues));
-    }
-
-    if (values.keyDecimalPointReplacement && !keyDecimalPointSubstitutionIsEnabled) {
-      toggleKeyDecimalPointSubstitutionIsEnabled();
+      dispatch(updateCodeRules(deferredValues));
     }
   }, values);
 
-  useDeferredEffect((decimalPointReplacementSwitchIsOn) => {
-    if (decimalPointReplacementSwitchIsOn && !values.keyDecimalPointReplacement) {
+  useDeferredUpdateEffect((deferredDecimalSubEnabled) => {
+    // # Save state of key decimal point substitution switch to global state
+    if (deferredDecimalSubEnabled && !values.keyDecimalPointReplacement) {
       dispatch(enableDecimalPointReplacementInKeys());
     }
-    if (!decimalPointReplacementSwitchIsOn) {
+    if (!deferredDecimalSubEnabled) {
       dispatch(disableDecimalPointReplacementInKeys());
     }
   }, keyDecimalPointSubstitutionIsEnabled);
-
-  useDeferredEffect(() => {
-    setValues(defaultCodeRules);
-  }, selectedScaleType);
 
   return {
     unitSelectProps,
