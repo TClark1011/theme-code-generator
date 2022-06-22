@@ -75,7 +75,7 @@ const deepCopy = <T>(item: T): T => {
   }
 
   const result: AnyDict = {};
-  Object.entries(item).forEach(([key, value]) => {
+  Object.entries(item as AnyDict).forEach(([key, value]) => {
     if (isPlainObject(value)) {
       result[key] = deepCopy(value);
     } else {
