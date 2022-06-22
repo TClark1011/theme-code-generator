@@ -2,19 +2,13 @@ import fontFamilyRule from '$/utils/fontFamilyRule';
 import { deepUpdate } from '$deep-merge';
 import { MantineTheme, DEFAULT_THEME, MantineProviderProps } from '@mantine/core';
 
+const bodyFonts = ['Ubuntu', 'Roboto', 'SF Pro', 'Segoe UI', 'sans-serif'];
 const theme: MantineTheme = deepUpdate(DEFAULT_THEME, {
   primaryColor: 'blue',
   colorScheme: 'dark',
-  fontFamily: fontFamilyRule(['Ubuntu', 'Roboto', 'SF Pro', 'Segoe UI', 'sans-serif']),
+  fontFamily: fontFamilyRule(bodyFonts),
   headings: {
-    fontFamily: fontFamilyRule([
-      'Work Sans',
-      'Ubuntu',
-      'Roboto',
-      'SF Pro',
-      'Segoe UI',
-      'sans-serif',
-    ]),
+    fontFamily: fontFamilyRule(['Red Hat Display', ...bodyFonts]),
   },
 });
 
