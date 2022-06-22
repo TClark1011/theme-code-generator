@@ -6,7 +6,7 @@
 - [x] Remove 'mantine' group from color drop down
 - [x] Replace color palettes with the ones from tailwind
 - [ ] Show mini code preview next to the code form
-- [ ] Find better title font
+- [x] Find better title font
 - [ ] Write better landing page text
 - [ ] Come up with better title
 - [ ] Refactor so all 'scales' are in the 'code-generation' folder
@@ -19,6 +19,8 @@
 - [ ] `lineBreakAfterPrefix` and `lineBreakBeforePostfix` toggles in code form
 - [ ] Fix bug where code form reverts to selected preset when its form step is entered
 - [ ] Analytics
+- [ ] Favicon
+- [ ] Page Metadata
 
 ## Potential Future Features
 
