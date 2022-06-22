@@ -1,7 +1,7 @@
 import { setSelectedPresetName } from '$code-generation/store/codeGenerationReducer';
 import { useStoreDispatch, useStoreSelector } from '$/store/storeHooks';
 import { Select, SelectItem, SelectProps } from '@mantine/core';
-import { A, flow, O, S } from '@mobily/ts-belt';
+import { A, flow } from '@mobily/ts-belt';
 import { Except } from 'type-fest';
 import {
   selectActivePresetItem,
@@ -9,15 +9,13 @@ import {
 } from '$code-generation/store/codeGenerationSelectors';
 import { createSelector } from '@reduxjs/toolkit';
 
-const getFirstWord = flow(S.split(' '), A.head, O.getWithDefault<string>(''));
-
 const selectCodePresetSelectionItems = createSelector(
   selectApplicableCodePresets,
   A.map(
-    ({ name }): SelectItem => ({
+    ({ name, group }): SelectItem => ({
       label: name,
       value: name,
-      group: getFirstWord(name),
+      group,
     })
   )
 );

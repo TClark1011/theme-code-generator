@@ -33,40 +33,55 @@ const stylusVarPxSystem = deepUpdate(scssVarPxSystem, {
   keyValueSeparator: ' = ',
 });
 
+enum SpacingPresetGroup {
+  css = 'CSS',
+  scss = 'SCSS',
+  stylus = 'Stylus',
+  less = 'Less',
+}
+
 // TODO: Give Code preset items a 'group' property to group them in the drop down
 // TODO: Different presets for different scale types
 const spacingPresets: Array<CodePresetItem> = [
   {
     name: 'CSS Variables (px)',
     data: cssVarPxSystem,
+    group: SpacingPresetGroup.css,
   },
   {
     name: 'CSS Variables (rem)',
     data: withRemLinePostfix(cssVarPxSystem),
+    group: SpacingPresetGroup.css,
   },
   {
     name: 'SCSS Variables (px)',
     data: scssVarPxSystem,
+    group: SpacingPresetGroup.scss,
   },
   {
     name: 'SCSS Variables (rem)',
     data: withRemLinePostfix(scssVarPxSystem),
+    group: SpacingPresetGroup.scss,
   },
   {
     name: 'LESS Variables (px)',
     data: lessVarPxSystem,
+    group: SpacingPresetGroup.less,
   },
   {
     name: 'LESS Variables (rem)',
     data: withRemLinePostfix(lessVarPxSystem),
+    group: SpacingPresetGroup.less,
   },
   {
     name: 'Stylus Variables (px)',
     data: stylusVarPxSystem,
+    group: SpacingPresetGroup.stylus,
   },
   {
     name: 'Stylus Variables (rem)',
     data: withRemLinePostfix(stylusVarPxSystem),
+    group: SpacingPresetGroup.stylus,
   },
 ];
 

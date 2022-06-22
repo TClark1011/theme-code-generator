@@ -2,12 +2,14 @@
 
 ## 1.0
 
+- [x] Refactor presets to have a 'group' field
 - [ ] Remove 'mantine' group from color drop down
 - [ ] Show mini code preview next to the code form
 - [ ] Find better title font
 - [ ] Write better landing page text
 - [ ] Come up with better title
 - [ ] Refactor so all 'scales' are in the 'code-generation' folder
+- [ ] Additional custom label (eg; for color you want to have `color-primary` instead of just `color`)
 
 ## Potential Future Features
 
