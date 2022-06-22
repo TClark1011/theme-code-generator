@@ -19,6 +19,8 @@
 - [ ] `lineBreakAfterPrefix` and `lineBreakBeforePostfix` toggles in code form
 - [ ] Fix bug where code form reverts to selected preset when its form step is entered
 - [ ] Analytics
+  - If you are having trouble deciding, you can start by implementing the groundwork for analytics with this (https://github.com/davidwells/analytics) which then lets you hook it up to an actual analytics provider later
+  - This one looks like it might be the best https://plausible.io/
 - [ ] Favicon
 - [ ] Page Metadata
 
