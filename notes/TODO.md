@@ -3,7 +3,8 @@
 ## 1.0
 
 - [x] Refactor presets to have a 'group' field
-- [ ] Remove 'mantine' group from color drop down
+- [x] Remove 'mantine' group from color drop down
+- [ ] Replace color palettes with the ones from tailwind
 - [ ] Show mini code preview next to the code form
 - [ ] Find better title font
 - [ ] Write better landing page text

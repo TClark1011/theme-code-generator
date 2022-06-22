@@ -21,7 +21,6 @@ const colorPalettes: Array<ThemeScale> = [
           key: `${index}`,
           value: color,
         })),
-        group: 'Mantine',
       } as ThemeScale)
   ),
 ];
