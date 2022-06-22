@@ -40,6 +40,14 @@ const tailwindDefaultSpacing = {
   96: '24rem',
 };
 
+const airbnbSpacing = {
+  tiny: 8,
+  small: 16,
+  base: 24,
+  large: 48,
+  'x-large': 64,
+};
+
 const convertRemStringToPxNumber = flow(remToPx, S.remove('px'), Number);
 
 const pricelineGenerator: (index: number) => number = F.memoizeWithKey(String, (index: number) =>
@@ -75,6 +83,18 @@ const spacingScales: Array<ThemeScale> = [
       key: `${i}`,
       value: pipe(i, pricelineGenerator, String),
     })),
+  },
+  {
+    id: 'airbnb',
+    name: 'Airbnb',
+    values: pipe(
+      airbnbSpacing,
+      D.toPairs,
+      A.map(([key, value]) => ({
+        key,
+        value: String(value),
+      }))
+    ),
   },
 ];
 
