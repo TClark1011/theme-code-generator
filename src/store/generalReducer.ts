@@ -9,7 +9,7 @@ export type GeneralState = {
 };
 
 const initialState: GeneralState = {
-  selectedScaleType: 'color',
+  selectedScaleType: 'spacing',
   selectedUnitIds: {
     spacing: spacingPxUnit.id,
     color: colorUnits[0].id,
