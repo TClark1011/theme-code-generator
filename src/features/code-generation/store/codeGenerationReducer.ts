@@ -7,6 +7,7 @@ export type CodeGenerationState = {
   codeGenerationModalIsOpen: boolean;
   selectedPresetName: string | undefined;
   savedDecimalReplacementRule: string | undefined;
+  codeLabel: string;
 };
 
 const initialState: CodeGenerationState = {
@@ -14,6 +15,7 @@ const initialState: CodeGenerationState = {
   codeGenerationModalIsOpen: false,
   selectedPresetName: undefined,
   savedDecimalReplacementRule: undefined,
+  codeLabel: '',
 };
 
 const codeGenerationSlice = createSlice({
@@ -45,6 +47,9 @@ const codeGenerationSlice = createSlice({
     resetPresetSelection: (state: CodeGenerationState) => {
       state.selectedPresetName = undefined;
     },
+    updateCodeLabel: (state: CodeGenerationState, { payload }: PayloadAction<string>) => {
+      state.codeLabel = payload;
+    },
   },
 });
 
@@ -55,6 +60,7 @@ export const {
   enableDecimalPointReplacementInKeys,
   setSelectedPresetName,
   resetPresetSelection,
+  updateCodeLabel,
 } = codeGenerationSlice.actions;
 
 const codeGenerationReducer = codeGenerationSlice.reducer;

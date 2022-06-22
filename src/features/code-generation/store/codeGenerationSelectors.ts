@@ -2,16 +2,18 @@ import {
   printThemeScaleCode,
   ThemeScaleCodeItem,
 } from '$code-generation/models/ThemeScaleCodeRules';
-import {
-  selectActiveScaleValues,
-  selectActiveThemeScaleUnit,
-  selectSelectedScaleType,
-} from '$/store/selectors';
+import { selectActiveScaleValues, selectActiveThemeScaleUnit } from '$/store/selectors';
 import { StoreSelector, StoreState } from '$/store/store';
 import { Array } from '$/models/utilityTypes';
 import codePresets from '$code-generation/constants/codePresets';
 import { createSelector } from '@reduxjs/toolkit';
 import CodePresetItem from '$code-generation/models/CodePresetItem';
+import { D } from '@mobily/ts-belt';
+
+export const selectCodeLabel: StoreSelector<string> = createSelector(
+  (state: StoreState) => state.codeGeneration,
+  D.getUnsafe('codeLabel')
+);
 
 export const selectApplicableCodePresets = createSelector(
   (s: StoreState) => s.general.selectedScaleType,
@@ -19,15 +21,15 @@ export const selectApplicableCodePresets = createSelector(
 );
 
 export const selectGeneratedCode: StoreSelector<string> = (state) => {
-  const scaleType = selectSelectedScaleType(state);
   const selectedUnit = selectActiveThemeScaleUnit(state);
   const codeSystem = state.codeGeneration.codeSystemRules;
+  const label = selectCodeLabel(state);
 
   const values = selectActiveScaleValues(state);
   const items: Array<ThemeScaleCodeItem> = values.map(({ key, value }) => ({
     key,
     value,
-    label: scaleType,
+    label,
     unit: selectedUnit,
   }));
 

@@ -1,6 +1,6 @@
 import { selectSelectedScaleType } from '$/store/selectors';
 import { useStoreDispatch, useStoreSelector } from '$/store/storeHooks';
-import { resetPresetSelection } from '$code-generation';
+import { resetPresetSelection, updateCodeLabel } from '$code-generation';
 import { useDidUpdate } from '@mantine/hooks';
 import { FC } from 'react';
 
@@ -9,7 +9,9 @@ const StoreSideEffects: FC = () => {
   const selectedScaleType = useStoreSelector(selectSelectedScaleType);
 
   useDidUpdate(() => {
-    dispatch(resetPresetSelection);
+    // # When a new scale type is selected ...
+    dispatch(resetPresetSelection); // clear preset selection
+    dispatch(updateCodeLabel(selectedScaleType)); // apply default code label
   }, [selectedScaleType]);
 
   return null;

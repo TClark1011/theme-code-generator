@@ -34,6 +34,7 @@ import { createStructuredSelector } from 'reselect';
 import { StoreState } from '$/store/store';
 import { useMemo } from 'react';
 import { defaultCodeRules } from '$code-generation/constants';
+import { CodeLabelInput } from '$code-generation';
 
 const composeScaleUnitSelectItem = ({ id, name }: ThemeScaleUnit): SelectItem => ({
   value: id,
@@ -119,8 +120,9 @@ const ThemeScaleCodeForm: React.FC = () => {
 
   return (
     <Stack>
-      <PresetDropdown />
+      <CodeLabelInput />
       <Select label="Units" {...unitSelectProps} />
+      <PresetDropdown />
       <Divider />
       <Group direction="column">
         <Group sx={{ width: '100%' }}>

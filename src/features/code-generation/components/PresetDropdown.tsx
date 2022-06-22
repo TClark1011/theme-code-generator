@@ -31,9 +31,10 @@ const PresetDropdown: React.FC<PresetDropdownProps> = (props) => {
   return (
     <Select
       data={selectionItems as any}
-      label="Preset"
+      label="Select Preset"
       onChange={flow(setSelectedPresetName, dispatch)}
       value={selectedCodePresetItem?.name}
+      placeholder="None"
       {...props}
     />
   );
