@@ -5,19 +5,22 @@ import { StoreSelector, StoreState } from '$/store/store';
 import { createSelector } from '@reduxjs/toolkit';
 import { D } from '@mobily/ts-belt';
 import { deriveIfAsyncStoreDataIsLoading } from '$/models/AsyncStoreData';
+import TailwindColorPalette from '$color/models/TailwindColorPalette';
 
 export const selectCurrentColorPalette: StoreSelector<ThemeScale> = createSelector(
   (s: StoreState) => s.color,
   (colorState): ThemeScale => {
     if (colorState.usingCustomColor) {
-      const rawColors = Object.values(colorState.customColorPaletteQuery.data ?? {});
+      const rawColors = D.toPairs(
+        colorState.customColorPaletteQuery.data ?? ({} as any as TailwindColorPalette)
+      );
 
       return {
         id: 'custom',
         name: 'custom',
-        values: rawColors.map((value, index) => ({
-          key: `${index}`,
-          value,
+        values: rawColors.map(([shade, color]) => ({
+          key: shade,
+          value: color,
         })),
       };
     }

@@ -4,14 +4,15 @@
 
 - [x] Refactor presets to have a 'group' field
 - [x] Remove 'mantine' group from color drop down
-- [ ] Replace color palettes with the ones from tailwind
+- [x] Replace color palettes with the ones from tailwind
 - [ ] Show mini code preview next to the code form
 - [ ] Find better title font
 - [ ] Write better landing page text
 - [ ] Come up with better title
 - [ ] Refactor so all 'scales' are in the 'code-generation' folder
 - [x] Additional custom label (eg; for color you want to have `color-primary` instead of just `color`)
-- [ ] Proper color shade keys
+- [x] Proper color shade keys
+- [ ] JS/TS Array/Object presets
 
 ## Potential Future Features
 
