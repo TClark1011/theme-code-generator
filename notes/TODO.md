@@ -5,7 +5,7 @@
 - [x] Refactor presets to have a 'group' field
 - [x] Remove 'mantine' group from color drop down
 - [x] Replace color palettes with the ones from tailwind
-- [ ] Show mini code preview next to the code form
+- [x] Show mini code preview next to the code form
 - [x] Find better title font
 - [ ] Write better landing page text
 - [ ] Come up with better title
@@ -23,6 +23,7 @@
   - This one looks like it might be the best https://plausible.io/
 - [ ] Favicon
 - [ ] Page Metadata
+- [ ] Change the code rule form so that by default you can only see the top 3 inputs, you have to manually open the form to enter custom values
 
 ## Potential Future Features
 
