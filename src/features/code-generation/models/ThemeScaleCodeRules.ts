@@ -46,7 +46,9 @@ export const printThemeScaleCodeItem = (
   );
   const finalLabel = showLabel ? label : '';
 
-  return `${linePrefix}${finalLabel}${labelKeySeparator}${finalKey}${keyValueSeparator}${finalValue}${linePostfix}`;
+  return `${linePrefix}${finalLabel}${
+    showKey || showLabel ? labelKeySeparator : ''
+  }${finalKey}${keyValueSeparator}${finalValue}${linePostfix}`;
 };
 
 const lineBreakAtEndRegex = /\n$/;

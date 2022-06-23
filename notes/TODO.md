@@ -13,8 +13,8 @@
 - [x] Additional custom label (eg; for color you want to have `color-primary` instead of just `color`)
 - [x] Proper color shade keys
 - [x] JS Array/Object presets
-- [ ] If 'show key' is disabled, change the label for the 'keyValueSeparator' field to read 'value prefix' and make sure its not disabled
-- [ ] Repeat above step but for 'show label'
+- [x] If 'show key' is disabled, change the label for the 'keyValueSeparator' field to read 'value prefix' and make sure its not disabled
+- [x] Repeat above step but for 'show label'
 - [x] `lineBreakAfterPrefix` and `lineBreakBeforePostfix` toggles in code form
 - [ ] Fix bug where code form reverts to selected preset when its form step is entered
 - [ ] Analytics
@@ -23,6 +23,7 @@
 - [ ] Favicon
 - [ ] Page Metadata
 - [x] Change the code rule form so that by default you can only see the top 3 inputs, you have to manually open the form to enter custom values
+- [ ] Do not allow for no prefix to be selected, add 'blank' prefix
 
 ## Potential Future Features
 

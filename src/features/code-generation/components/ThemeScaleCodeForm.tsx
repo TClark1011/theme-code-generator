@@ -40,6 +40,7 @@ import { useMemo } from 'react';
 import defaultCodeRules from '$code-generation/constants/defaultCodeRules';
 import CodeLabelInput from '$code-generation/components/CodeLabelInput';
 import GeneratedCodePreview from '$code-generation/components/GeneratedCodePreview';
+import { match } from 'ts-pattern';
 
 const composeScaleUnitSelectItem = ({ id, name }: ThemeScaleUnit): SelectItem => ({
   value: id,
@@ -108,14 +109,32 @@ const useThemeScaleCodeForm = () => {
     }
   }, keyDecimalPointSubstitutionIsEnabled);
 
+  const labelKeySeparatorIsEnabled = values.showLabel || values.showKey;
+  const labelKeySeparatorLabel = match({
+    showLabel: values.showLabel,
+    showKey: values.showKey,
+  })
+    .with(
+      { showLabel: true, showKey: true },
+      { showLabel: false, showKey: false },
+      () => 'Label/Key Separator'
+    )
+    .with({ showLabel: true, showKey: false }, () => 'Label Postfix')
+    .with({ showKey: true, showLabel: false }, () => 'Key Prefix')
+    .exhaustive();
+
+  const keyValueSeparatorLabel = values.showKey ? 'Key/Value Separator' : 'Value Prefix';
+
   return {
     unitSelectProps,
     getInputProps,
-    values,
     keyDecimalPointSubstitutionIsEnabled,
     toggleKeyDecimalPointSubstitutionIsEnabled,
     advancedFieldsAreExpanded,
     toggleAdvancedFieldsExpansion,
+    keyValueSeparatorLabel,
+    labelKeySeparatorLabel,
+    labelKeySeparatorIsEnabled,
   };
 };
 
@@ -123,11 +142,13 @@ const ThemeScaleCodeForm: React.FC = () => {
   const {
     unitSelectProps,
     getInputProps,
-    values,
     keyDecimalPointSubstitutionIsEnabled,
     toggleKeyDecimalPointSubstitutionIsEnabled,
     advancedFieldsAreExpanded,
     toggleAdvancedFieldsExpansion,
+    keyValueSeparatorLabel,
+    labelKeySeparatorLabel,
+    labelKeySeparatorIsEnabled,
   } = useThemeScaleCodeForm();
 
   return (
@@ -217,15 +238,11 @@ const ThemeScaleCodeForm: React.FC = () => {
           <Group direction="column">
             <SimpleGrid cols={2} sx={{ width: '100%' }}>
               <TextInput
-                label="Label -> Key Separator"
+                disabled={!labelKeySeparatorIsEnabled}
+                label={labelKeySeparatorLabel}
                 {...getInputProps('labelKeySeparator')}
-                disabled={!values.showLabel}
               />
-              <TextInput
-                label="Key -> Value Separator"
-                {...getInputProps('keyValueSeparator')}
-                disabled={!values.showKey}
-              />
+              <TextInput label={keyValueSeparatorLabel} {...getInputProps('keyValueSeparator')} />
               <TextInput label="Line Prefix" {...getInputProps('linePrefix')} />
               <TextInput label="Line Postfix" {...getInputProps('linePostfix')} />
             </SimpleGrid>
