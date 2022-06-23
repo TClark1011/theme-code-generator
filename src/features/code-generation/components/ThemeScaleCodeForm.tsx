@@ -1,5 +1,7 @@
 import { useStoreDispatch, useStoreSelector } from '$/store/storeHooks';
 import {
+  Checkbox,
+  Collapse,
   Divider,
   Group,
   Select,
@@ -68,6 +70,9 @@ const useThemeScaleCodeForm = () => {
     { toggle: toggleKeyDecimalPointSubstitutionIsEnabled },
   ] = useDisclosure(values.keyDecimalPointReplacement !== undefined);
 
+  const [advancedFieldsAreExpanded, { toggle: toggleAdvancedFieldsExpansion }] =
+    useDisclosure(false);
+
   const unitSelectProps: Pick<SelectProps, 'data' | 'value' | 'onChange'> = useMemo(
     () => ({
       data: selectableScales.map(composeScaleUnitSelectItem),
@@ -109,6 +114,8 @@ const useThemeScaleCodeForm = () => {
     values,
     keyDecimalPointSubstitutionIsEnabled,
     toggleKeyDecimalPointSubstitutionIsEnabled,
+    advancedFieldsAreExpanded,
+    toggleAdvancedFieldsExpansion,
   };
 };
 
@@ -119,6 +126,8 @@ const ThemeScaleCodeForm: React.FC = () => {
     values,
     keyDecimalPointSubstitutionIsEnabled,
     toggleKeyDecimalPointSubstitutionIsEnabled,
+    advancedFieldsAreExpanded,
+    toggleAdvancedFieldsExpansion,
   } = useThemeScaleCodeForm();
 
   return (
@@ -128,65 +137,103 @@ const ThemeScaleCodeForm: React.FC = () => {
         <Select label="Units" {...unitSelectProps} />
       </Group>
       <PresetDropdown />
-      <Divider />
-      <Group direction="column">
-        <Group sx={{ width: '100%' }}>
-          <TextInput sx={{ flex: 1 }} label="Prefix" {...getInputProps('prefix')} />
-          <TextInput sx={{ flex: 1 }} label="Postfix" {...getInputProps('postfix')} />
-        </Group>
-        <SimpleGrid cols={2} sx={{ width: '100%' }}>
-          <Switch
-            label="Use Line Breaks?"
-            checked={values.useLineBreaks}
-            {...getInputProps('useLineBreaks')}
+      <Divider
+        label={
+          <Checkbox
+            label="Use Custom Options"
+            onChange={toggleAdvancedFieldsExpansion}
+            checked={advancedFieldsAreExpanded}
           />
-          <Switch
-            label="Indent Values?"
-            checked={values.useIndentation}
-            {...getInputProps('useIndentation')}
-          />
-          <Switch label="Show Labels" checked={values.showLabel} {...getInputProps('showLabel')} />
-          <Switch label="Show Keys " checked={values.showKey} {...getInputProps('showKey')} />
-          <Switch
-            label="Replace Decimal Points In Keys"
-            styles={{
-              root: {
-                flexDirection: 'row-reverse',
-                gap: 16,
-                justifyContent: 'flex-end',
-              },
-              label: {
-                paddingLeft: 0,
-              },
-            }}
-            checked={keyDecimalPointSubstitutionIsEnabled}
-            onChange={toggleKeyDecimalPointSubstitutionIsEnabled}
-          />
-          <TextInput
-            {...getInputProps('keyDecimalPointReplacement')}
-            disabled={!keyDecimalPointSubstitutionIsEnabled}
-          />
-        </SimpleGrid>
-      </Group>
-      <Divider />
-      <Group direction="column">
-        <SimpleGrid cols={2} sx={{ width: '100%' }}>
-          <TextInput
-            label="Label -> Key Separator"
-            {...getInputProps('labelKeySeparator')}
-            disabled={!values.showLabel}
-          />
-          <TextInput
-            label="Key -> Value Separator"
-            {...getInputProps('keyValueSeparator')}
-            disabled={!values.showKey}
-          />
-          <TextInput label="Line Prefix" {...getInputProps('linePrefix')} />
-          <TextInput label="Line Postfix" {...getInputProps('linePostfix')} />
-        </SimpleGrid>
-      </Group>
-      <Divider mb={32} />
-      <Title order={3}>Code Preview</Title>
+        }
+      />
+      <Collapse in={advancedFieldsAreExpanded}>
+        <Stack>
+          <Group direction="column">
+            <Group sx={{ width: '100%' }}>
+              <TextInput sx={{ flex: 1 }} label="Prefix" {...getInputProps('prefix')} />
+              <TextInput sx={{ flex: 1 }} label="Postfix" {...getInputProps('postfix')} />
+            </Group>
+            {/* //# GRID OF CHECKBOXES */}
+            <SimpleGrid cols={2} sx={{ width: '100%' }}>
+              <Switch
+                label="Line Break After Prefix"
+                {...getInputProps('lineBreakAfterPrefix', {
+                  type: 'checkbox',
+                })}
+              />
+              <Switch
+                label="Line Break Before Postfix"
+                {...getInputProps('lineBreakBeforePostfix', {
+                  type: 'checkbox',
+                })}
+              />
+              <Switch
+                label="Use Line Breaks"
+                {...getInputProps('useLineBreaks', {
+                  type: 'checkbox',
+                })}
+              />
+              <Switch
+                label="Indent Values"
+                {...getInputProps('useIndentation', {
+                  type: 'checkbox',
+                })}
+              />
+              <Switch
+                label="Show Labels"
+                {...getInputProps('showLabel', {
+                  type: 'checkbox',
+                })}
+              />
+              <Switch
+                label="Show Keys "
+                {...getInputProps('showKey', {
+                  type: 'checkbox',
+                })}
+              />
+              <Switch
+                label="Replace Decimal Points In Keys"
+                styles={{
+                  root: {
+                    flexDirection: 'row-reverse',
+                    gap: 16,
+                    justifyContent: 'flex-end',
+                  },
+                  label: {
+                    paddingLeft: 0,
+                  },
+                }}
+                checked={keyDecimalPointSubstitutionIsEnabled}
+                onChange={toggleKeyDecimalPointSubstitutionIsEnabled}
+              />
+              <TextInput
+                {...getInputProps('keyDecimalPointReplacement')}
+                disabled={!keyDecimalPointSubstitutionIsEnabled}
+              />
+            </SimpleGrid>
+          </Group>
+          <Divider />
+          {/* //# LINE OPTIONS */}
+          <Group direction="column">
+            <SimpleGrid cols={2} sx={{ width: '100%' }}>
+              <TextInput
+                label="Label -> Key Separator"
+                {...getInputProps('labelKeySeparator')}
+                disabled={!values.showLabel}
+              />
+              <TextInput
+                label="Key -> Value Separator"
+                {...getInputProps('keyValueSeparator')}
+                disabled={!values.showKey}
+              />
+              <TextInput label="Line Prefix" {...getInputProps('linePrefix')} />
+              <TextInput label="Line Postfix" {...getInputProps('linePostfix')} />
+            </SimpleGrid>
+          </Group>
+          <Divider mb={32} />
+        </Stack>
+      </Collapse>
+      <Title order={3}>Preview</Title>
       <GeneratedCodePreview singleLine fullWidth hideCopyButton />
       <Space h={16} />
     </Stack>

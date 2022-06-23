@@ -15,14 +15,14 @@
 - [x] JS Array/Object presets
 - [ ] If 'show key' is disabled, change the label for the 'keyValueSeparator' field to read 'value prefix' and make sure its not disabled
 - [ ] Repeat above step but for 'show label'
-- [ ] `lineBreakAfterPrefix` and `lineBreakBeforePostfix` toggles in code form
+- [x] `lineBreakAfterPrefix` and `lineBreakBeforePostfix` toggles in code form
 - [ ] Fix bug where code form reverts to selected preset when its form step is entered
 - [ ] Analytics
   - If you are having trouble deciding, you can start by implementing the groundwork for analytics with this (https://github.com/davidwells/analytics) which then lets you hook it up to an actual analytics provider later
   - This one looks like it might be the best https://plausible.io/
 - [ ] Favicon
 - [ ] Page Metadata
-- [ ] Change the code rule form so that by default you can only see the top 3 inputs, you have to manually open the form to enter custom values
+- [x] Change the code rule form so that by default you can only see the top 3 inputs, you have to manually open the form to enter custom values
 
 ## Potential Future Features
 
