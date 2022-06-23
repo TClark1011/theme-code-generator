@@ -6,9 +6,11 @@ import {
   SelectItem,
   SelectProps,
   SimpleGrid,
+  Space,
   Stack,
   Switch,
   TextInput,
+  Title,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { D, flow } from '@mobily/ts-belt';
@@ -33,8 +35,9 @@ import { selectActivePresetItem } from '$code-generation/store/codeGenerationSel
 import { createStructuredSelector } from 'reselect';
 import { StoreState } from '$/store/store';
 import { useMemo } from 'react';
-import { defaultCodeRules } from '$code-generation/constants';
-import { CodeLabelInput } from '$code-generation';
+import defaultCodeRules from '$code-generation/constants/defaultCodeRules';
+import CodeLabelInput from '$code-generation/components/CodeLabelInput';
+import GeneratedCodePreview from '$code-generation/components/GeneratedCodePreview';
 
 const composeScaleUnitSelectItem = ({ id, name }: ThemeScaleUnit): SelectItem => ({
   value: id,
@@ -120,8 +123,10 @@ const ThemeScaleCodeForm: React.FC = () => {
 
   return (
     <Stack>
-      <CodeLabelInput />
-      <Select label="Units" {...unitSelectProps} />
+      <Group sx={{ width: '100%', justifyContent: 'stretch', '& > *': { flex: '1 !important' } }}>
+        <CodeLabelInput />
+        <Select label="Units" {...unitSelectProps} />
+      </Group>
       <PresetDropdown />
       <Divider />
       <Group direction="column">
@@ -180,6 +185,10 @@ const ThemeScaleCodeForm: React.FC = () => {
           <TextInput label="Line Postfix" {...getInputProps('linePostfix')} />
         </SimpleGrid>
       </Group>
+      <Divider mb={32} />
+      <Title order={3}>Code Preview</Title>
+      <GeneratedCodePreview singleLine fullWidth hideCopyButton />
+      <Space h={16} />
     </Stack>
   );
 };

@@ -5,7 +5,7 @@
 - [x] Refactor presets to have a 'group' field
 - [x] Remove 'mantine' group from color drop down
 - [x] Replace color palettes with the ones from tailwind
-- [ ] Show mini code preview next to the code form
+- [x] Show mini code preview next to the code form
 - [x] Find better title font
 - [ ] Write better landing page text
 - [ ] Come up with better title
@@ -13,7 +13,6 @@
 - [x] Additional custom label (eg; for color you want to have `color-primary` instead of just `color`)
 - [x] Proper color shade keys
 - [x] JS Array/Object presets
-- [ ] Disable the `label` form field if `Show Label` is not checked
 - [ ] If 'show key' is disabled, change the label for the 'keyValueSeparator' field to read 'value prefix' and make sure its not disabled
 - [ ] Repeat above step but for 'show label'
 - [ ] `lineBreakAfterPrefix` and `lineBreakBeforePostfix` toggles in code form
@@ -23,6 +22,7 @@
   - This one looks like it might be the best https://plausible.io/
 - [ ] Favicon
 - [ ] Page Metadata
+- [ ] Change the code rule form so that by default you can only see the top 3 inputs, you have to manually open the form to enter custom values
 
 ## Potential Future Features
 
