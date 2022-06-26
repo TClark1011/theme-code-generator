@@ -2,6 +2,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:lenient": "cross-env NO_STRICT_MODE=true yarn dev",
     "build": "next build",
     "start": "next start",
     "check-types": "tsc --noEmit",
