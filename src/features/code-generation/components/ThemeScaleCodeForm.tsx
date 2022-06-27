@@ -15,7 +15,7 @@ import {
   Title,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { D, flow } from '@mobily/ts-belt';
+import { B, D, flow } from '@mobily/ts-belt';
 import {
   selectActiveThemeScaleUnit,
   selectApplicableThemeScaleUnits,
@@ -41,6 +41,7 @@ import defaultCodeRules from '$code-generation/constants/defaultCodeRules';
 import CodeLabelInput from '$code-generation/components/CodeLabelInput';
 import GeneratedCodePreview from '$code-generation/components/GeneratedCodePreview';
 import { match } from 'ts-pattern';
+import useStoredState from '$/hooks/useStoredState';
 
 const composeScaleUnitSelectItem = ({ id, name }: ThemeScaleUnit): SelectItem => ({
   value: id,
@@ -57,6 +58,21 @@ const selectCodeFormData = createStructuredSelector({
   selectedScaleType: selectSelectedScaleType,
 });
 
+const useAdvancedFieldsAreExpandedState = () => {
+  const [advancedFieldsAreExpanded, setAdvancedFieldsAreExpanded] = useStoredState(
+    'session',
+    'theme-code-advanced-fields-expanded',
+    false
+  );
+
+  const toggleAdvancedFieldsExpansion = () => setAdvancedFieldsAreExpanded(B.inverse);
+
+  return {
+    advancedFieldsAreExpanded,
+    toggleAdvancedFieldsExpansion,
+  };
+};
+
 const useThemeScaleCodeForm = () => {
   const dispatch = useStoreDispatch();
   const { currentCodeRules, selectableScales, selectedScale, selectedPresetFormValues } =
@@ -70,9 +86,6 @@ const useThemeScaleCodeForm = () => {
     keyDecimalPointSubstitutionIsEnabled,
     { toggle: toggleKeyDecimalPointSubstitutionIsEnabled },
   ] = useDisclosure(values.keyDecimalPointReplacement !== undefined);
-
-  const [advancedFieldsAreExpanded, { toggle: toggleAdvancedFieldsExpansion }] =
-    useDisclosure(false);
 
   const unitSelectProps: Pick<SelectProps, 'data' | 'value' | 'onChange'> = useMemo(
     () => ({
@@ -130,8 +143,6 @@ const useThemeScaleCodeForm = () => {
     getInputProps,
     keyDecimalPointSubstitutionIsEnabled,
     toggleKeyDecimalPointSubstitutionIsEnabled,
-    advancedFieldsAreExpanded,
-    toggleAdvancedFieldsExpansion,
     keyValueSeparatorLabel,
     labelKeySeparatorLabel,
     labelKeySeparatorIsEnabled,
@@ -144,12 +155,13 @@ const ThemeScaleCodeForm: React.FC = () => {
     getInputProps,
     keyDecimalPointSubstitutionIsEnabled,
     toggleKeyDecimalPointSubstitutionIsEnabled,
-    advancedFieldsAreExpanded,
-    toggleAdvancedFieldsExpansion,
     keyValueSeparatorLabel,
     labelKeySeparatorLabel,
     labelKeySeparatorIsEnabled,
   } = useThemeScaleCodeForm();
+
+  const { advancedFieldsAreExpanded, toggleAdvancedFieldsExpansion } =
+    useAdvancedFieldsAreExpandedState();
 
   return (
     <Stack>
