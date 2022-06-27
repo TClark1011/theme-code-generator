@@ -16,14 +16,15 @@
 - [x] If 'show key' is disabled, change the label for the 'keyValueSeparator' field to read 'value prefix' and make sure its not disabled
 - [x] Repeat above step but for 'show label'
 - [x] `lineBreakAfterPrefix` and `lineBreakBeforePostfix` toggles in code form
-- [ ] Fix bug where code form reverts to selected preset when its form step is entered
+- [x] Fix bug where code form reverts to selected preset when its form step is entered
+  - **NOTE:** This bug was caused by react strict mode and did not occur in production. If you see this bug still occurring during development, its probably because of strict mode. You can check if this is the case by running the app with `yarn dev:lenient` to disable strict mode.
 - [ ] Analytics
   - If you are having trouble deciding, you can start by implementing the groundwork for analytics with this (https://github.com/davidwells/analytics) which then lets you hook it up to an actual analytics provider later
   - This one looks like it might be the best https://plausible.io/
 - [ ] Favicon
 - [ ] Page Metadata
 - [x] Change the code rule form so that by default you can only see the top 3 inputs, you have to manually open the form to enter custom values
-- [ ] Do not allow for no prefix to be selected, add 'blank' prefix
+- [ ] Do not allow for no preset to be selected, add 'blank' preset to be the default
 
 ## Potential Future Features
 
