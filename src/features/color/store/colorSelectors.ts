@@ -4,16 +4,22 @@ import ThemeScale from '$/models/ThemeScale';
 import { StoreSelector, StoreState } from '$/store/store';
 import { createSelector } from '@reduxjs/toolkit';
 import { D } from '@mobily/ts-belt';
-import { deriveIfAsyncStoreDataIsLoading } from '$/models/AsyncStoreData';
+import AsyncStoreData, { deriveIfAsyncStoreDataIsLoading } from '$/models/AsyncStoreData';
 import TailwindColorPalette from '$color/models/TailwindColorPalette';
 
+export const selectCustomColor: StoreSelector<string> = (s) => s.color.customColor;
+export const selectIsUsingCustomColor: StoreSelector<boolean> = (s) => s.color.usingCustomColor;
+export const selectCustomColorPaletteQuery: StoreSelector<AsyncStoreData<TailwindColorPalette>> = (
+  s
+) => s.color.customColorPaletteQuery;
+
 export const selectCurrentColorPalette: StoreSelector<ThemeScale> = createSelector(
-  (s: StoreState) => s.color,
-  (colorState): ThemeScale => {
-    if (colorState.usingCustomColor) {
-      const rawColors = D.toPairs(
-        colorState.customColorPaletteQuery.data ?? ({} as any as TailwindColorPalette)
-      );
+  selectIsUsingCustomColor,
+  (s: StoreState) => selectCustomColorPaletteQuery(s)?.data,
+  (s: StoreState) => s.color.colorPaletteId,
+  (usingCustomColor, customColorData, colorPaletteId): ThemeScale => {
+    if (usingCustomColor) {
+      const rawColors = D.toPairs(customColorData ?? ({} as any as TailwindColorPalette));
 
       return {
         id: 'custom',
@@ -25,35 +31,22 @@ export const selectCurrentColorPalette: StoreSelector<ThemeScale> = createSelect
       };
     }
 
-    const paletteId = colorState.colorPaletteId;
-    const fullPalette = findItemWithId(colorPalettes, paletteId);
+    const fullPalette = findItemWithId(colorPalettes, colorPaletteId);
 
-    if (!fullPalette) throw new Error(`Color palette with id '${paletteId}' does not exist`);
+    if (!fullPalette) throw new Error(`Color palette with id '${colorPaletteId}' does not exist`);
 
     return fullPalette;
   }
 );
 
 export const selectCurrentColors = createSelector(
-  (s: StoreState) => s,
-  (state): Array<string> => {
-    return selectCurrentColorPalette(state).values.map(D.getUnsafe('value'));
-  }
-);
-
-export const selectCustomColor = createSelector(
-  (s: StoreState) => s.color,
-  (color) => color.customColor
-);
-
-export const selectIsUsingCustomColor = createSelector(
-  (s: StoreState) => s.color,
-  D.getUnsafe('usingCustomColor')
+  selectCurrentColorPalette,
+  (currentPalette): Array<string> => currentPalette.values.map(D.getUnsafe('value'))
 );
 
 export const selectIfColorsAreInLoadingState = createSelector(
-  (s: StoreState) => s.color,
-  (colorState): boolean =>
-    colorState.usingCustomColor &&
-    deriveIfAsyncStoreDataIsLoading(colorState.customColorPaletteQuery)
+  selectIsUsingCustomColor,
+  selectCustomColorPaletteQuery,
+  (usingCustomColor, customColorPaletteQuery): boolean =>
+    usingCustomColor && deriveIfAsyncStoreDataIsLoading(customColorPaletteQuery)
 );
