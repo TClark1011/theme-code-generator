@@ -5,13 +5,23 @@ import { createSelector } from '@reduxjs/toolkit';
 import { findItemWithId } from '$entity-helpers';
 import { scaleUnits } from '$code-generation';
 import { Array, KeyValuePair } from '$/models/utilityTypes';
-import { ThemeScaleType } from '$/store/generalReducer';
+import { StepNumber, ThemeScaleType } from '$/store/generalReducer';
 import { selectCurrentColorPalette } from '$color';
 
 export const selectSelectedScaleType: StoreSelector<ThemeScaleType> = (s) =>
   s.general.selectedScaleType;
-
 export const selectSelectedUnitIds = (s: StoreState) => s.general.selectedUnitIds;
+export const selectStepNumber: StoreSelector<StepNumber> = (s) => s.general.stepNumber;
+
+export const selectIsAtLastStep = createSelector(
+  selectStepNumber,
+  (stepNumber) => stepNumber === 3
+);
+export const selectIsAtFirstStep = createSelector(
+  selectStepNumber,
+  (stepNumber) => stepNumber === 0
+);
+
 export const selectActiveUnitId: StoreSelector<string> = (s) =>
   s.general.selectedUnitIds[s.general.selectedScaleType];
 export const selectValidUnits: StoreSelector<Array<ThemeScaleUnit>> = (s) =>

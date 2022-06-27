@@ -1,13 +1,38 @@
 import { Box, Code } from '@mantine/core';
 import { useStoreSelector } from '$/store/storeHooks';
 import {
+  selectCodeSystemRules,
   selectGeneratedCode,
   selectSingleGeneratedCodeLine,
 } from '$code-generation/store/codeGenerationSelectors';
 import CopyActionIcon from '$/components/CopyActionIcon';
 import { FC } from 'react';
-import { F } from '@mobily/ts-belt';
+import { A, D, F } from '@mobily/ts-belt';
 import { StoreSelector } from '$/store/store';
+import useAnalyticsDispatch from '$/hooks/useAnalyticsDispatch';
+import { selectActiveScaleValues, selectSelectedScaleType } from '$/store/selectors';
+import { createSelector } from 'reselect';
+
+const selectRawScaleValues = createSelector(selectActiveScaleValues, A.map(D.getUnsafe('value')));
+export const useCodeCopiedAnalyticsEvent = () => {
+  const generatedCode = useStoreSelector(selectGeneratedCode);
+  const scaleValues = useStoreSelector(selectRawScaleValues);
+  const codeRules = useStoreSelector(selectCodeSystemRules);
+  const scaleType = useStoreSelector(selectSelectedScaleType);
+  const dispatchAnalyticsEvent = useAnalyticsDispatch();
+
+  const fireCopiedEvent = () =>
+    dispatchAnalyticsEvent('copiedCode', {
+      props: {
+        code: generatedCode,
+        codeRules,
+        scaleType,
+        values: scaleValues,
+      },
+    });
+
+  return fireCopiedEvent;
+};
 
 export type GeneratedCodePreviewProps = {
   singleLine?: boolean;
@@ -26,6 +51,7 @@ const GeneratedCodePreview: FC<GeneratedCodePreviewProps> = ({
   fullWidth = false,
   hideCopyButton = false,
 }) => {
+  const fireCopyAnalyticsEvent = useCodeCopiedAnalyticsEvent();
   const generatedCode = useStoreSelector(composeGeneratedCodeSelector(singleLine));
 
   return (
@@ -41,6 +67,7 @@ const GeneratedCodePreview: FC<GeneratedCodePreviewProps> = ({
           popperProps={{
             position: 'left',
           }}
+          onCopy={fireCopyAnalyticsEvent}
         />
       )}
     </Box>

@@ -1,11 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { findItemWithId } from '$entity-helpers';
 import { scaleUnits, colorUnits, spacingPxUnit } from '$code-generation';
+import { N } from '@mobily/ts-belt';
 
 export type ThemeScaleType = 'spacing' | 'color';
+export type StepNumber = 0 | 1 | 2 | 3;
 export type GeneralState = {
   selectedScaleType: ThemeScaleType;
   selectedUnitIds: Record<ThemeScaleType, string>;
+  stepNumber: StepNumber;
 };
 
 const initialState: GeneralState = {
@@ -14,7 +17,10 @@ const initialState: GeneralState = {
     spacing: spacingPxUnit.id,
     color: colorUnits[0].id,
   },
+  stepNumber: 0,
 };
+
+const clampToValidStepNumber = N.clamp(0, 3) as (p: number) => StepNumber;
 
 const generalSlice = createSlice({
   name: 'general',
@@ -30,10 +36,25 @@ const generalSlice = createSlice({
 
       state.selectedUnitIds[state.selectedScaleType] = newScaleUnit.id;
     },
+    gotoNextStep: (state: GeneralState) => {
+      state.stepNumber = clampToValidStepNumber(state.stepNumber + 1);
+    },
+    gotoPreviousStep: (state: GeneralState) => {
+      state.stepNumber = clampToValidStepNumber(state.stepNumber - 1);
+    },
+    gotoStep: (state: GeneralState, { payload }: PayloadAction<StepNumber>) => {
+      state.stepNumber = clampToValidStepNumber(payload);
+    },
   },
 });
 
-export const { setSelectedScaleType, selectNewScaleUnitFromId } = generalSlice.actions;
+export const {
+  setSelectedScaleType,
+  selectNewScaleUnitFromId,
+  gotoNextStep,
+  gotoStep,
+  gotoPreviousStep,
+} = generalSlice.actions;
 
 const generalReducer = generalSlice.reducer;
 
