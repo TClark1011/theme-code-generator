@@ -9,7 +9,6 @@
 - [x] Find better title font
 - [ ] Write better landing page text
 - [x] Come up with better title
-- [ ] Refactor so all 'scales' are in the 'code-generation' folder
 - [x] Additional custom label (eg; for color you want to have `color-primary` instead of just `color`)
 - [x] Proper color shade keys
 - [x] JS Array/Object presets
