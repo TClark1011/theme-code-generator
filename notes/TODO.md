@@ -8,7 +8,7 @@
 - [x] Show mini code preview next to the code form
 - [x] Find better title font
 - [ ] Write better landing page text
-- [ ] Come up with better title
+- [x] Come up with better title
 - [ ] Refactor so all 'scales' are in the 'code-generation' folder
 - [x] Additional custom label (eg; for color you want to have `color-primary` instead of just `color`)
 - [x] Proper color shade keys
@@ -25,6 +25,8 @@
 - [ ] Page Metadata
 - [x] Change the code rule form so that by default you can only see the top 3 inputs, you have to manually open the form to enter custom values
 - [ ] Do not allow for no preset to be selected, add 'blank' preset to be the default
+- [ ] Setup Domain
+- [ ] Write README
 
 ## Potential Future Features
 

@@ -1,3 +1,4 @@
+import { APP_TITLE } from '$/constants/branding';
 import { Box, Center, Text, Title } from '@mantine/core';
 import Image from 'next/image';
 import { FC } from 'react';
@@ -11,7 +12,7 @@ const LandingPage: FC = () => {
         <Center sx={{ flex: 1 }}>
           <Box sx={{ minWidth: 400, maxWidth: '30vw' }}>
             <Title order={1} sx={{ fontSize: 70, lineHeight: '100%' }} mb={16}>
-              Theme Code Generator
+              {APP_TITLE}
             </Title>
             <Text size="lg" sx={{ lineHeight: '2rem' }}>
               Ut excepteur non irure minim do sit mollit esse eu. Magna veniam nostrud consequat ex
