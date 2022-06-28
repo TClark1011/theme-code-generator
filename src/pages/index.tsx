@@ -1,14 +1,19 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import { APP_TITLE } from '$/constants/branding';
+import { APP_DOMAIN, APP_TITLE } from '$/constants/branding';
 import ThemeCodeGeneration from '$/components/ThemeCodeGeneration';
 import LandingPage from '$/components/LandingPage';
+import Meta from '$meta';
 
 const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>{APP_TITLE}</title>
+        <Meta
+          title={APP_TITLE}
+          url={APP_DOMAIN}
+          description="Exercitation voluptate non aliqua veniam. Minim nostrud ullamco irur"
+        />
       </Head>
       <main>
         <LandingPage />
