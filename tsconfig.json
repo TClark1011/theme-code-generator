@@ -16,11 +16,10 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      // TODO: refactor paths/imports. Folders within `src` should not have index files
       "$*": ["./src/features/*", "./src/lib/*"],
       "$/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "src/**/*.ts", "src/**/*.tsx"],
+  "include": ["next-env.d.ts", "src/**/*.ts", "src/**/*.tsx", "src/scripts/**/*.ts"],
   "exclude": ["node_modules"]
 }
