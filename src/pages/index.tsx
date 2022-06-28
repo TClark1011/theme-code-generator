@@ -3,17 +3,23 @@ import Head from 'next/head';
 import { APP_DOMAIN, APP_TITLE } from '$/constants/branding';
 import ThemeCodeGeneration from '$/components/ThemeCodeGeneration';
 import LandingPage from '$/components/LandingPage';
-import Meta from '$meta';
 
 const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <Meta
-          title={APP_TITLE}
-          url={APP_DOMAIN}
-          description="Exercitation voluptate non aliqua veniam. Minim nostrud ullamco irur"
+        <title>{APP_TITLE}</title>
+        <meta property="og:title" content={APP_TITLE} />
+        <meta
+          name="description"
+          content={'r duis nulla nulla. Esse aliqua tempor ipsum Lorem in.'}
         />
+        <meta
+          name="og:description"
+          content={'r duis nulla nulla. Esse aliqua tempor ipsum Lorem in.'}
+        />
+        <meta name="og:image" content={`${APP_DOMAIN}/og-image.jpg`} />
+        <meta name="og:url" content={APP_DOMAIN} />
       </Head>
       <main>
         <LandingPage />

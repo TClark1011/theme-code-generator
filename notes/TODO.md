@@ -21,7 +21,7 @@
   - If you are having trouble deciding, you can start by implementing the groundwork for analytics with this (https://github.com/davidwells/analytics) which then lets you hook it up to an actual analytics provider later
   - This one looks like it might be the best https://plausible.io/
 - [ ] Favicon
-- [ ] Page Metadata
+- [x] Page Metadata
 - [x] Change the code rule form so that by default you can only see the top 3 inputs, you have to manually open the form to enter custom values
 - [ ] Do not allow for no preset to be selected, add 'blank' preset to be the default
 - [ ] Setup Domain
