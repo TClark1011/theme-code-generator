@@ -26,6 +26,7 @@
 - [ ] Do not allow for no preset to be selected, add 'blank' preset to be the default
 - [ ] Setup Domain
 - [ ] Write README
+- [ ] CTA Button that scrolls down to the main content
 
 ## Potential Future Features
 

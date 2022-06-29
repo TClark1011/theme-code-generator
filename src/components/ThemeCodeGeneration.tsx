@@ -22,7 +22,7 @@ const ThemeCodeGeneration: FC = () => {
   );
 
   return (
-    <Container sx={{ height: '100vh' }} pt={64}>
+    <Container sx={{ height: '100vh' }} pt={64} id="theme-code-generation">
       <Box>
         <Stepper
           active={currentStep}

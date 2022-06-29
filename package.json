@@ -6,7 +6,7 @@
     "build": "next build",
     "start": "next start",
     "check-types": "tsc --noEmit",
-    "lint": "eslint --fix \"src/**/*.{ts,tsx}\"",
+    "lint": "eslint --fix \"src/**/*.{ts,tsx}\" \"tests/**/*.{spec,test}.{ts,tsx}\"",
     "fix:type-exports": "tsx ./scripts/fixTypeExports.ts",
     "delete:features-index": "rimraf src/features/*/index.ts",
     "generate:ogimage": "tsx scripts/generateMetadataImage.ts",
@@ -15,7 +15,9 @@
     "index": "yarn generate:folder-index && yarn delete:features-index && yarn generate:features-index",
     "precommit": "yarn lint && yarn check-types",
     "commit": "git-cz",
-    "analyze-bundle": "cross-env ANALYZE=true yarn build"
+    "analyze-bundle": "cross-env ANALYZE=true yarn build",
+    "test": "playwright test",
+    "test:dev": "TEST_ON_DEV=true yarn test"
   },
   "dependencies": {
     "@mantine/core": "^4.1.4",
