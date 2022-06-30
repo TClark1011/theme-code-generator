@@ -1,37 +1,39 @@
-import { APP_TITLE } from '$/constants/branding';
-import { Box, Center, Text, Title } from '@mantine/core';
+import { APP_DESCRIPTION, APP_TITLE } from '$/constants/branding';
+import { CORE_CONTENT_ID } from '$/constants/ids';
+import { Box, Button, Center, Text, Title } from '@mantine/core';
 import Image from 'next/image';
 import { FC } from 'react';
 
-const IMAGE_SIZE = 800;
+const IMAGE_SIZE = 600;
 
 const LandingPage: FC = () => {
   return (
-    <Center sx={{ width: '100%', height: '100vh' }} px={128}>
+    <Center component="section" sx={{ width: '100%', height: '100vh' }} px={128}>
       <Box sx={{ display: 'flex', width: '100%' }}>
         <Center sx={{ flex: 1 }}>
           <Box sx={{ minWidth: 400, maxWidth: '30vw' }}>
             <Title order={1} sx={{ fontSize: 70, lineHeight: '100%' }} mb={16}>
               {APP_TITLE}
             </Title>
-            <Text size="lg" sx={{ lineHeight: '2rem' }}>
-              Ut excepteur non irure minim do sit mollit esse eu. Magna veniam nostrud consequat ex
-              consequat sunt anim duis veniam officia. Eiusmod velit veniam ullamco consequat
-              aliquip minim nisi voluptate non fugiat nulla nulla ea. Nulla commodo consectetur
-              nulla sint excepteur nulla labore exercitation. Ex aute elit ut cupidatat consequat
-              elit eu. Commodo esse adipisicing pariatur incididunt ad cillum nisi excepteur
-              cupidatat excepteur cillum. Excepteur do eu ut quis voluptate pariatur dolore aliquip
-              ad adipisicing eiusmod ea ea officia.
+            <Text component="p" size="lg" sx={{ lineHeight: '2rem' }} mb={16}>
+              {APP_DESCRIPTION}
             </Text>
+            <Center sx={{ width: '100%' }}>
+              <Button size="md" px={64} component="a" href={`#${CORE_CONTENT_ID}`}>
+                Get Started
+              </Button>
+            </Center>
           </Box>
         </Center>
-        <Center sx={{ flex: 1 }}>
-          <Image
-            src="/icons/programming.svg"
-            alt="programming-icon"
-            height={IMAGE_SIZE}
-            width={IMAGE_SIZE}
-          />
+        <Center sx={{ flexGrow: 1, minWidth: 400 }}>
+          <Box>
+            <Image
+              src="/icons/programming.svg"
+              alt="programming-icon"
+              height={IMAGE_SIZE}
+              width={IMAGE_SIZE}
+            />
+          </Box>
         </Center>
       </Box>
     </Center>

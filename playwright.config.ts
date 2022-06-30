@@ -12,6 +12,9 @@ const config: PlaywrightTestConfig = {
   webServer: {
     command: `PORT=${PORT} yarn ${COMMAND}`,
     url: URL,
+    env: {
+      IS_TESTING: 'true',
+    },
   },
 };
 

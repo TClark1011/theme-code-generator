@@ -1,10 +1,10 @@
 import type { AppProps } from 'next/app';
-import { MantineProvider } from '@mantine/core';
+import { Global, MantineProvider } from '@mantine/core';
 import { Chart } from 'chart.js';
 import { useReducedMotion } from '@mantine/hooks';
 import { Provider as StoreProvider } from 'react-redux';
 import store from '$/store/store';
-import theme, { defaultStyles } from '$/constants/theme';
+import theme, { defaultStyles, globalStyles } from '$/constants/theme';
 import useMountEffect from '$/hooks/useMountEffect';
 import StoreSideEffects from '$/store/StoreSideEffects';
 import { AnalyticsProvider } from '$analytics';
@@ -23,6 +23,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <AnalyticsProvider domain={APP_DOMAIN} enabled={ANALYTICS_ENABLED}>
       <MantineProvider theme={theme} styles={defaultStyles} withGlobalStyles withNormalizeCSS>
+        <Global styles={() => globalStyles as any} />
         <StoreProvider store={store}>
           <StoreSideEffects />
           <Component {...pageProps} />

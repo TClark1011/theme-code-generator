@@ -7,7 +7,7 @@
 - [x] Replace color palettes with the ones from tailwind
 - [x] Show mini code preview next to the code form
 - [x] Find better title font
-- [ ] Write better landing page text
+- [x] Write better landing page text
 - [x] Come up with better title
 - [x] Additional custom label (eg; for color you want to have `color-primary` instead of just `color`)
 - [x] Proper color shade keys
@@ -26,7 +26,7 @@
 - [ ] Do not allow for no preset to be selected, add 'blank' preset to be the default
 - [ ] Setup Domain
 - [ ] Write README
-- [ ] CTA Button that scrolls down to the main content
+- [x] CTA Button that scrolls down to the main content
 
 ## Potential Future Features
 
