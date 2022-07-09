@@ -1,6 +1,6 @@
 import { useStoreDispatch, useStoreSelector } from '$/store/storeHooks';
 import {
-  Checkbox,
+  Button,
   Collapse,
   Divider,
   Group,
@@ -42,6 +42,7 @@ import CodeLabelInput from '$code-generation/components/CodeLabelInput';
 import GeneratedCodePreview from '$code-generation/components/GeneratedCodePreview';
 import { match } from 'ts-pattern';
 import useStoredState from '$/hooks/useStoredState';
+import { ChevronRight } from 'tabler-icons-react';
 
 const composeScaleUnitSelectItem = ({ id, name }: ThemeScaleUnit): SelectItem => ({
   value: id,
@@ -172,11 +173,23 @@ const ThemeScaleCodeForm: React.FC = () => {
       <PresetDropdown />
       <Divider
         label={
-          <Checkbox
-            label="Use Custom Options"
-            onChange={toggleAdvancedFieldsExpansion}
-            checked={advancedFieldsAreExpanded}
-          />
+          <Button
+            onClick={toggleAdvancedFieldsExpansion}
+            variant="subtle"
+            size="xs"
+            px={4}
+            color="dark"
+          >
+            <ChevronRight
+              size={16}
+              style={{
+                transition: 'transform 0.2s ease-in-out',
+                transform: advancedFieldsAreExpanded ? 'rotate(90deg)' : 'rotate(0deg)',
+                marginRight: 4,
+              }}
+            />
+            {advancedFieldsAreExpanded ? 'Hide Advanced Options' : 'Show Advanced Options'}
+          </Button>
         }
       />
       <Collapse in={advancedFieldsAreExpanded}>
