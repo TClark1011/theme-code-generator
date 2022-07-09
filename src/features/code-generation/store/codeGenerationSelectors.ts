@@ -12,6 +12,7 @@ import { Array } from '$/models/utilityTypes';
 import codePresets from '$code-generation/constants/codePresets';
 import { createSelector } from '@reduxjs/toolkit';
 import { createStructuredSelector } from 'reselect';
+import getMiddleElement from '$/utils/getMiddleElement';
 
 export const selectCodeSystemRules: StoreSelector<ThemeScaleCodeRules> = (state) =>
   state.codeGeneration.codeSystemRules;
@@ -55,7 +56,7 @@ export const selectGeneratedCode = createSelector(
 export const selectSingleGeneratedCodeLine = createSelector(
   selectDataNeededForCodeGeneration,
   ({ codeSystem, items }): string => {
-    const randomItem = items[5];
+    const randomItem = getMiddleElement(items);
 
     if (!randomItem) throw Error('No theme scale values found');
 
