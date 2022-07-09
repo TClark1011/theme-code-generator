@@ -1,4 +1,4 @@
-import { A, D, flow } from '@mobily/ts-belt';
+import { D, flow } from '@mobily/ts-belt';
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Tooltip } from 'chart.js';
 import { Box, BoxProps } from '@mantine/core';
@@ -10,10 +10,10 @@ import useThemeColor from '$/hooks/useThemeColor';
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip);
 
 const visualizationValuesSelector = createSelector(
-  (state: StoreState) => state.spacing.selectedScale,
-  (selectedScale) => ({
-    numericValues: (A.tail(selectedScale.values) ?? []).map(flow(D.getUnsafe('value'), Number)),
-    labels: (A.tail(selectedScale.values) ?? []).map(D.getUnsafe('key')),
+  (state: StoreState) => state.spacing.selectedScale.values,
+  (values) => ({
+    numericValues: (values ?? []).map(flow(D.getUnsafe('value'), Number)),
+    labels: (values ?? []).map(D.getUnsafe('key')),
   })
 );
 
