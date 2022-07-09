@@ -1,6 +1,5 @@
 import { createGetInitialProps } from '@mantine/next';
 import Document, { Head, Html, Main, NextScript } from 'next/document';
-import Script from 'next/script';
 
 const getInitialProps = createGetInitialProps();
 
@@ -11,7 +10,7 @@ export default class _Document extends Document {
     return (
       <Html>
         <Head>
-          <Script
+          <script
             defer
             data-domain="designvariables.com"
             src="https://plausible.io/js/plausible.js"
