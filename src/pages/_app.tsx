@@ -9,7 +9,6 @@ import useMountEffect from '$/hooks/useMountEffect';
 import StoreSideEffects from '$/store/StoreSideEffects';
 import { AnalyticsProvider } from '$analytics';
 import { APP_DOMAIN } from '$/constants/branding';
-import { ANALYTICS_ENABLED } from '$/constants/env';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const clientPrefersReducedMotion = useReducedMotion();
@@ -21,7 +20,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   });
 
   return (
-    <AnalyticsProvider domain={APP_DOMAIN} enabled={ANALYTICS_ENABLED}>
+    <AnalyticsProvider domain={APP_DOMAIN}>
       <MantineProvider theme={theme} styles={defaultStyles} withGlobalStyles withNormalizeCSS>
         <Global styles={() => globalStyles as any} />
         <StoreProvider store={store}>
