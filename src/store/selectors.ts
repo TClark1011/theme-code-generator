@@ -44,7 +44,7 @@ export const selectActiveThemeScaleUnit = createSelector(
   }
 );
 
-export const selectActiveScaleValues = createSelector(
+export const selectActiveScaleValues: StoreSelector<Array<KeyValuePair<string>>> = createSelector(
   selectSelectedScaleType,
   (s: StoreState) => s.spacing.selectedScale.values,
   (s: StoreState) => selectCurrentColorPalette(s).values,
