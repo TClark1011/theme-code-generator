@@ -4,7 +4,7 @@ import { selectSelectedScaleType, selectStepNumber } from '$/store/selectors';
 import { useStoreDispatch, useStoreSelector } from '$/store/storeHooks';
 import { resetPresetSelection, selectActivePresetItem, updateCodeLabel } from '$code-generation';
 import { useDidUpdate } from '@mantine/hooks';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { createSelector } from 'reselect';
 
 export const selectActivePresetName = createSelector(selectActivePresetItem, (p) => p?.name);
@@ -14,7 +14,7 @@ const StoreSideEffects: FC = () => {
   const dispatchAnalyticsEvent = useAnalyticsDispatch();
   const selectedScaleType = useStoreSelector(selectSelectedScaleType);
 
-  useDidUpdate(() => {
+  useEffect(() => {
     dispatch(updateCodeLabel(selectedScaleType)); // apply default code label
   }, [selectedScaleType]);
 
