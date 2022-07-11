@@ -1,3 +1,5 @@
 src/pages/**
 src/lib/*.ts?(x)
 src/*/*.ts?(x)
+*
+tests/**/*
