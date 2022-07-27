@@ -27,6 +27,11 @@
 - [x] Setup Domain
 - [ ] Write README
 - [x] CTA Button that scrolls down to the main content
+- [ ] Add feature to apply string transformation to keys
+- [ ] Mobile Design
+- [ ] Improved line rule system
+  - Instead of using all the "line rules" to define how each line of code is generated, the user will instead write out how the line should look, and they can type stuff like `{key}` to substitute in variables
+  - Eg; If a user writes `--spacing-{key}: {value}px;` then that could get transformed into `--spacing-2: 8px;`, etc.
 
 ## Potential Future Features
 

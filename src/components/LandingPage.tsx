@@ -1,10 +1,8 @@
+import ExamplesDisplay from '$/components/ExamplesDisplay';
 import { APP_DESCRIPTION, APP_TITLE } from '$/constants/branding';
 import { CORE_CONTENT_ID } from '$/constants/ids';
 import { Box, Button, Center, Text, Title } from '@mantine/core';
-import Image from 'next/image';
 import { FC } from 'react';
-
-const IMAGE_SIZE = 600;
 
 const LandingPage: FC = () => {
   return (
@@ -25,15 +23,8 @@ const LandingPage: FC = () => {
             </Center>
           </Box>
         </Center>
-        <Center sx={{ flexGrow: 1, minWidth: 400 }}>
-          <Box>
-            <Image
-              src="/icons/programming.svg"
-              alt="programming-icon"
-              height={IMAGE_SIZE}
-              width={IMAGE_SIZE}
-            />
-          </Box>
+        <Center sx={{ flexGrow: 1, width: 400 }}>
+          <ExamplesDisplay />
         </Center>
       </Box>
     </Center>

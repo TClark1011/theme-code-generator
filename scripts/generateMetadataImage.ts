@@ -20,6 +20,8 @@ const PORT = '3010';
 
     await page.goto(`localhost:${PORT}`);
 
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
     await page.screenshot({
       path: 'public/og-image.jpg',
     });

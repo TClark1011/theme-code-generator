@@ -14,7 +14,9 @@ test('Page Has Basic Content', async ({ page }) => {
   const ctaButton = await landingPageContainer.locator('a');
 
   await expect(mainHeading).toHaveText('Design Variables');
-  await expect(description).toHaveText('Generate all the variables you need for you design system');
+  await expect(description).toHaveText(
+    'Generate all the variables you need for your design system'
+  );
   await expect(ctaButton).toHaveText(CTA_BUTTON_TEXT);
 
   const documentTitle = await page.title();
